@@ -1,0 +1,178 @@
+# =========================
+# Operating System Files
+# =========================
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+
+# =========================
+# VS Code
+# =========================
+
+.vscode/
+*.code-workspace
+
+
+# =========================
+# Build Directories
+# =========================
+
+build/
+Build/
+bin/
+out/
+output/
+dist/
+release/
+debug/
+Debug/
+Release/
+
+
+# =========================
+# C/C++ Compiled Files
+# =========================
+
+# Object files
+*.o
+*.obj
+
+# Executable files
+*.exe
+*.out
+*.app
+*.bin
+
+# Dynamic libraries
+*.dll
+*.so
+*.dylib
+
+# Static libraries
+*.lib
+*.a
+
+# Windows executable metadata
+*.exp
+*.ilk
+*.pdb
+*.idb
+
+# Precompiled headers
+*.gch
+*.pch
+
+
+# =========================
+# Debugging Files
+# =========================
+
+*.dSYM/
+*.stackdump
+*.core
+
+# GDB / LLDB
+.gdb_history
+.lldbinit
+
+
+# =========================
+# CMake
+# =========================
+
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+Makefile
+compile_commands.json
+CTestTestfile.cmake
+_install/
+install_manifest.txt
+
+
+# =========================
+# Ninja Build
+# =========================
+
+.ninja_deps
+.ninja_log
+
+
+# =========================
+# Compiler Output
+# =========================
+
+*.log
+*.tmp
+*.temp
+
+
+# =========================
+# Python (if mixed projects)
+# =========================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+
+
+# =========================
+# Node / Web Projects (optional)
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# =========================
+# IDE Files
+# =========================
+
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# =========================
+# Generated Documentation
+# =========================
+
+docs/_build/
+
+
+# =========================
+# Environment / Secrets
+# =========================
+
+.env
+.env.*
+*.secret
+
+
+# =========================
+# Temporary Files
+# =========================
+
+*.bak
+*.swp
+*.swo
+*.cache
