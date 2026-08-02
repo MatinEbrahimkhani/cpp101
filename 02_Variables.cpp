@@ -1,50 +1,88 @@
-﻿#include <iostream>
-void Circle(double radious){
-    double pi = 3.14;
-    float ghotr = 2*radious;
-    float area = pi*radious*radious;
-    float volume = (4/3)*pi*radious*radious*radious;
-    float sphere_area = 4*pi*radious*radious;
-    std::cout << "Ghotr="<< ghotr <<std::endl;
-    std::cout << "Area="<< area <<std::endl;
-    std::cout << "Volume="<< volume <<std::endl;
-    std::cout << "Sphere Area="<< sphere_area <<std::endl;
+// ============================================================
+// Lesson 02: Variables and Basic Types
+// ============================================================
+// A variable is a labeled box that holds a value. The type
+// (int, double, float, ...) tells C++ what kind of value fits
+// in the box and how much room to set aside for it.
+// ============================================================
 
+#include <iostream>
+
+// --- Example 1: the basic types you'll use constantly ---
+void basicTypes() {
+    int age = 15;              // whole numbers, no decimal point
+    double pi = 3.14159;       // decimal numbers (preferred - more precise)
+    float price = 9.99f;       // decimal numbers (less precise, smaller) - the 'f' matters!
+    char grade = 'A';          // ONE character, in single quotes
+    bool isStudent = true;     // only true or false
+
+    std::cout << "age = " << age << std::endl;
+    std::cout << "pi = " << pi << std::endl;
+    std::cout << "price = " << price << std::endl;
+    std::cout << "grade = " << grade << std::endl;
+    std::cout << "isStudent = " << isStudent << std::endl; // prints 1, not "true" - that's normal!
 }
-void square(double side) {
-    double area = side*side;
-    double mohit = 4*side;
-    double volume = side*side*side;
-    std::cout << "Side="<< side <<std::endl;
-    std::cout << "Area="<< area <<std::endl;
-    std::cout << "Mohit="<< mohit <<std::endl;
-    std::cout << "Volume="<< volume <<std::endl;
 
+// --- Example 2: a classic beginner trap - integer division ---
+void divisionTrap() {
+    std::cout << "\n--- The integer division trap ---" << std::endl;
+
+    int a = 4, b = 3;
+    std::cout << "4 / 3 as int:    " << a / b << std::endl;         // prints 1 !! (truncated)
+    std::cout << "4 / 3 as double: " << (double)a / b << std::endl; // prints 1.33333
+
+    // Why? If BOTH sides of / are ints, C++ does integer division
+    // and throws away anything after the decimal point.
+    // Fix: convert (cast) at least one side to double first.
 }
- void Cylinder(double radious, double height) {
-    double pi = 3.14;
-    double area = 2*pi*radious*height + 2*pi*radious*radious;
-    double volume = pi*radious*radious*height;
-    double mohit = 2*pi*radious + 2*height;
-    std::cout << "Radious=" << radious <<std::endl;
-    std::cout << "Height=" << height <<std::endl;
-    std::cout << "Area="<< area <<std::endl;
-    std::cout << "Volume="<< volume <<std::endl;
 
- } 
- 
+// --- Example 3: using variables to describe a circle/sphere ---
+// (radious/ghotr/mohit kept exactly as originally written - your own math vocabulary)
+void circleFacts(double radious) {
+    const double pi = 3.14159;
+    double ghotr = 2 * radious;                                             // diameter
+    double area = pi * radious * radious;                                    // area
+    double sphereVolume = (4.0 / 3.0) * pi * radious * radious * radious;    // FIXED: 4.0/3.0, not 4/3
+    double sphereArea = 4 * pi * radious * radious;
 
+    std::cout << "\n--- Circle/Sphere with radius " << radious << " ---" << std::endl;
+    std::cout << "Ghotr (diameter) = " << ghotr << std::endl;
+    std::cout << "Area = " << area << std::endl;
+    std::cout << "Sphere Volume = " << sphereVolume << std::endl;
+    std::cout << "Sphere Area = " << sphereArea << std::endl;
+}
 
 int main() {
-    // Circle(5);
-    // std::cout << "-----------------------------"<<std::endl;
-    // Circle(3);
-    // std::cout << "-----------------------------"<<std::endl;
-    // Circle(10);
-//     square(5);
-//  std::cout << "-----------------------------"<<std::endl;
-//     square(3);
-//  std::cout << "-----------------------------"<<std::endl;
-//     square(10);
+    basicTypes();
+    divisionTrap();
+    circleFacts(5);
+    circleFacts(3);
     return 0;
 }
+
+// ------------------------------------------------------------
+// NOTE: this file originally had a bug right here - sphere volume
+// used (4/3) instead of (4.0/3.0), silently giving a wrong answer
+// because of the integer division trap shown in Example 2 above.
+// It's fixed now, but keep an eye out - this exact mistake is one
+// of the most common bugs beginners write in real code.
+// ------------------------------------------------------------
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Add a variable for your own age and print
+//    "In 5 years I will be X years old" using math on the variable.
+// 2. Write a function `squareFacts(double side)` that prints the
+//    perimeter (mohit = 4*side), area (side*side) and volume
+//    (side*side*side) of a cube with that side length. Call it
+//    from main() with a couple of different sizes.
+// 3. Find another real-life place where integer division could
+//    trick you (hint: splitting a bill between friends, averaging
+//    test scores) and write 3 lines of code that demonstrate it -
+//    both the wrong way and the fixed way.
+// 4. Bonus: write `cylinderFacts(double radius, double height)`
+//    that prints the surface area and volume of a cylinder.
+// 5. Challenge: what do you think `std::cout << (true + true);`
+//    prints? Guess first, then add the line and run it to check.
+// ============================================================

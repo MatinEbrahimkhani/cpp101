@@ -1,0 +1,1622 @@
+#!/usr/bin/env bash
+# ============================================================
+# apply_course_upgrade.sh
+# ------------------------------------------------------------
+# Rewrites the cpp101 course in place: removes committed binaries
+# and stray files, fixes the integer-division bug in Lesson 02,
+# rewrites every lesson with explanations + exercises, adds a
+# capstone project, a run.sh helper, working VS Code tasks, and a
+# safer .gitignore.
+#
+# Run this from the ROOT of your cpp101 git clone:
+#   cd ~/path/to/cpp101
+#   bash apply_course_upgrade.sh
+#
+# Flags:
+#   -y, --yes    skip the confirmation prompt
+# ============================================================
+
+set -euo pipefail
+
+SKIP_CONFIRM=0
+for arg in "$@"; do
+    case "$arg" in
+        -y|--yes) SKIP_CONFIRM=1 ;;
+    esac
+done
+
+echo "============================================================"
+echo " cpp101 course upgrade"
+echo "============================================================"
+
+# ------------------------------------------------------------
+# Safety checks - make sure we're really in the cpp101 repo root
+# ------------------------------------------------------------
+if [ ! -d ".git" ]; then
+    echo "ERROR: no .git directory here. Run this from the cpp101 repo root."
+    exit 1
+fi
+
+if [ ! -f "TEACHER_NOTES.md" ] && [ ! -f "01_HelloWorld.cpp" ]; then
+    echo "ERROR: this doesn't look like the cpp101 repo (expected"
+    echo "       TEACHER_NOTES.md or 01_HelloWorld.cpp here). Aborting"
+    echo "       to avoid touching the wrong folder."
+    exit 1
+fi
+
+echo
+echo "This will, in this repo:"
+echo "  - remove committed compiled binaries (01_HelloWorld, 02_Variables)"
+echo "  - remove main.cpp, Matfinance, plan-advancedHelloWorld.prompt.md"
+echo "  - overwrite 01-12 lesson files with expanded versions"
+echo "  - add 00_Playground.cpp and 13_Capstone.cpp"
+echo "  - overwrite README.md, TEACHER_NOTES.md, .gitignore"
+echo "  - add run.sh and .vscode/tasks.json + launch.json"
+echo "  - create a backup git branch of the current state"
+echo "  - stage everything with 'git add -A' (does NOT commit or push)"
+echo
+
+if [ "$SKIP_CONFIRM" -ne 1 ]; then
+    read -r -p "Continue? [y/N] " REPLY
+    case "$REPLY" in
+        [yY]|[yY][eE][sS]) ;;
+        *) echo "Aborted, nothing changed."; exit 0 ;;
+    esac
+fi
+
+# ------------------------------------------------------------
+# Backup branch, so this is always trivially reversible
+# ------------------------------------------------------------
+if git rev-parse HEAD >/dev/null 2>&1; then
+    BACKUP_BRANCH="pre-course-upgrade-$(date +%Y%m%d-%H%M%S)-$RANDOM"
+    if git branch "$BACKUP_BRANCH" 2>/dev/null; then
+        echo "Created backup branch: $BACKUP_BRANCH"
+        echo "(if anything looks wrong later: git reset --hard $BACKUP_BRANCH)"
+    else
+        echo "Note: could not create a backup branch (non-fatal, continuing)."
+    fi
+else
+    echo "No commits yet on this repo - skipping backup branch."
+fi
+
+echo
+echo "--- Removing committed binaries and stray files ---"
+git rm -f --cached --ignore-unmatch 01_HelloWorld 02_Variables >/dev/null 2>&1 || true
+rm -f 01_HelloWorld 02_Variables
+git rm -f --cached --ignore-unmatch Matfinance plan-advancedHelloWorld.prompt.md main.cpp >/dev/null 2>&1 || true
+rm -f Matfinance plan-advancedHelloWorld.prompt.md main.cpp
+echo "  done"
+
+echo
+echo "--- Writing lesson files ---"
+echo "  writing 00_Playground.cpp"
+cat > "00_Playground.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// 00_Playground.cpp
+// ============================================================
+// This file has nothing to teach you yet - just build it and
+// run it. That's the whole assignment for today.
+//
+// From now on, whenever you learn something new in a lesson,
+// come back here and try it out. This file is yours to break.
+// ============================================================
+
+#include <iostream>
+
+int main() {
+    for (int i = 0; i < 10; i++) {
+        std::cout << "Hello Amirreza and Sadra, this is line " << i + 1 << std::endl;
+    }
+
+    std::cout << std::endl;
+    std::cout << "That loop ran 10 times." << std::endl;
+    std::cout << "Change the 10 above to 20, rebuild, and run it again." << std::endl;
+    std::cout << "See what happens if you change '<' to '<='." << std::endl;
+
+    return 0;
+}
+CPP101_HEREDOC_EOF
+
+echo "  writing 01_HelloWorld.cpp"
+cat > "01_HelloWorld.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 01: Hello World
+// ============================================================
+// Every C++ program starts somewhere. That "somewhere" is a
+// function called main(). When you run this program, the
+// computer runs everything inside main()'s curly braces { }
+// from top to bottom.
+// ============================================================
+
+#include <iostream>   // gives us std::cout, the tool we use to print text
+                      // "جریان ورودی و خروجی" = input/output stream
+
+int main() {
+    // std::cout is how C++ prints to the screen.
+    // The << arrow "sends" text into cout, like pouring water into a cup.
+    std::cout << "Hello, World!" << std::endl;
+
+    // std::endl ends the line (like pressing Enter) and flushes the
+    // output so it actually shows up on screen right away.
+    std::cout << "Ramadan's grandson says hi too." << std::endl;
+
+    // You can print numbers just as easily as text - no quotes needed.
+    std::cout << "2 + 2 = " << 2 + 2 << std::endl;
+
+    // Every main() should end with this - it tells the operating
+    // system "the program finished successfully."
+    return 0;
+}
+
+// ------------------------------------------------------------
+// Expected output:
+// Hello, World!
+// Ramadan's grandson says hi too.
+// 2 + 2 = 4
+// ------------------------------------------------------------
+
+// ============================================================
+// EXERCISES - do these before moving to lesson 2
+// ============================================================
+// 1. Add a line that prints YOUR name instead of "World".
+// 2. Print your age using a math expression (e.g. 2026 - your
+//    birth year) instead of just typing the number.
+// 3. Try deleting the semicolon after one of the cout lines,
+//    save, and try to build. Read the error message the compiler
+//    gives you - this is a skill you'll use every single day as
+//    a programmer. Put the semicolon back when you're done.
+// 4. Bonus: print a small 3-line "picture" using only text
+//    characters, e.g. a tiny house or a smiley face.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 02_Variables.cpp"
+cat > "02_Variables.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 02: Variables and Basic Types
+// ============================================================
+// A variable is a labeled box that holds a value. The type
+// (int, double, float, ...) tells C++ what kind of value fits
+// in the box and how much room to set aside for it.
+// ============================================================
+
+#include <iostream>
+
+// --- Example 1: the basic types you'll use constantly ---
+void basicTypes() {
+    int age = 15;              // whole numbers, no decimal point
+    double pi = 3.14159;       // decimal numbers (preferred - more precise)
+    float price = 9.99f;       // decimal numbers (less precise, smaller) - the 'f' matters!
+    char grade = 'A';          // ONE character, in single quotes
+    bool isStudent = true;     // only true or false
+
+    std::cout << "age = " << age << std::endl;
+    std::cout << "pi = " << pi << std::endl;
+    std::cout << "price = " << price << std::endl;
+    std::cout << "grade = " << grade << std::endl;
+    std::cout << "isStudent = " << isStudent << std::endl; // prints 1, not "true" - that's normal!
+}
+
+// --- Example 2: a classic beginner trap - integer division ---
+void divisionTrap() {
+    std::cout << "\n--- The integer division trap ---" << std::endl;
+
+    int a = 4, b = 3;
+    std::cout << "4 / 3 as int:    " << a / b << std::endl;         // prints 1 !! (truncated)
+    std::cout << "4 / 3 as double: " << (double)a / b << std::endl; // prints 1.33333
+
+    // Why? If BOTH sides of / are ints, C++ does integer division
+    // and throws away anything after the decimal point.
+    // Fix: convert (cast) at least one side to double first.
+}
+
+// --- Example 3: using variables to describe a circle/sphere ---
+// (radious/ghotr/mohit kept exactly as originally written - your own math vocabulary)
+void circleFacts(double radious) {
+    const double pi = 3.14159;
+    double ghotr = 2 * radious;                                             // diameter
+    double area = pi * radious * radious;                                    // area
+    double sphereVolume = (4.0 / 3.0) * pi * radious * radious * radious;    // FIXED: 4.0/3.0, not 4/3
+    double sphereArea = 4 * pi * radious * radious;
+
+    std::cout << "\n--- Circle/Sphere with radius " << radious << " ---" << std::endl;
+    std::cout << "Ghotr (diameter) = " << ghotr << std::endl;
+    std::cout << "Area = " << area << std::endl;
+    std::cout << "Sphere Volume = " << sphereVolume << std::endl;
+    std::cout << "Sphere Area = " << sphereArea << std::endl;
+}
+
+int main() {
+    basicTypes();
+    divisionTrap();
+    circleFacts(5);
+    circleFacts(3);
+    return 0;
+}
+
+// ------------------------------------------------------------
+// NOTE: this file originally had a bug right here - sphere volume
+// used (4/3) instead of (4.0/3.0), silently giving a wrong answer
+// because of the integer division trap shown in Example 2 above.
+// It's fixed now, but keep an eye out - this exact mistake is one
+// of the most common bugs beginners write in real code.
+// ------------------------------------------------------------
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Add a variable for your own age and print
+//    "In 5 years I will be X years old" using math on the variable.
+// 2. Write a function `squareFacts(double side)` that prints the
+//    perimeter (mohit = 4*side), area (side*side) and volume
+//    (side*side*side) of a cube with that side length. Call it
+//    from main() with a couple of different sizes.
+// 3. Find another real-life place where integer division could
+//    trick you (hint: splitting a bill between friends, averaging
+//    test scores) and write 3 lines of code that demonstrate it -
+//    both the wrong way and the fixed way.
+// 4. Bonus: write `cylinderFacts(double radius, double height)`
+//    that prints the surface area and volume of a cylinder.
+// 5. Challenge: what do you think `std::cout << (true + true);`
+//    prints? Guess first, then add the line and run it to check.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 03_InputOutput.cpp"
+cat > "03_InputOutput.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 03: Input and Output
+// ============================================================
+// So far your programs only ever say what YOU hard-coded.
+// std::cin lets the program ask the user something and wait
+// for an answer - this is where programs start to feel alive.
+// ============================================================
+
+#include <iostream>
+
+int main() {
+    // --- Example 1: reading a single number ---
+    int age;
+    std::cout << "Enter your age: ";
+    std::cin >> age;
+    std::cout << "You are " << age << " years old." << std::endl;
+
+    // --- Example 2: reading two numbers and doing math with them ---
+    double a, b;
+    std::cout << "\nEnter two numbers separated by a space: ";
+    std::cin >> a >> b;
+    std::cout << a << " + " << b << " = " << a + b << std::endl;
+    std::cout << a << " * " << b << " = " << a * b << std::endl;
+
+    // --- Example 3: a tiny "calculator" using an operator character ---
+    double x, y;
+    char op;
+    std::cout << "\nEnter a calculation like: 5 + 3  -> ";
+    std::cin >> x >> op >> y;
+    if (op == '+') std::cout << "Result: " << x + y << std::endl;
+    else if (op == '-') std::cout << "Result: " << x - y << std::endl;
+    else if (op == '*') std::cout << "Result: " << x * y << std::endl;
+    else if (op == '/') std::cout << "Result: " << x / y << std::endl;
+    else std::cout << "I don't know that operator yet." << std::endl;
+
+    return 0;
+}
+
+// ------------------------------------------------------------
+// Note: std::cin >> stops reading at the first space, so it can't
+// read a full name like "Amir Reza" into one variable yet. We'll
+// fix that properly in Lesson 08 (Strings) with std::getline.
+// ------------------------------------------------------------
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Ask for a temperature in Celsius and print it in Fahrenheit.
+//    Formula: F = C * 9.0 / 5.0 + 32
+// 2. Ask for a price and a discount percentage, print the final
+//    price after the discount is applied.
+// 3. Ask for a number of seconds, print how many whole minutes
+//    and leftover seconds that is (hint: you'll want / and %,
+//    the "modulo" operator you'll meet properly in Lesson 05).
+// 4. Challenge: extend the mini calculator above to also support
+//    '%' (remainder) as an operator.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 04_Conditionals.cpp"
+cat > "04_Conditionals.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 04: Conditionals (if / else if / else)
+// ============================================================
+// Programs get interesting once they can make decisions.
+// A condition is anything that evaluates to true or false,
+// and if/else lets your program choose which code to run.
+// ============================================================
+
+#include <iostream>
+#include <string>
+
+int main() {
+    // --- Example 1: basic if / else if / else ---
+    int x;
+    std::cout << "Enter a number: ";
+    std::cin >> x;
+
+    if (x > 0) {
+        std::cout << "Positive" << std::endl;
+    } else if (x == 0) {
+        std::cout << "Zero" << std::endl;
+    } else {
+        std::cout << "Negative" << std::endl;
+    }
+
+    // --- Example 2: combining conditions with && (and), || (or) ---
+    int score;
+    std::cout << "\nEnter a test score (0-100): ";
+    std::cin >> score;
+
+    if (score < 0 || score > 100) {
+        std::cout << "That's not a valid score." << std::endl;
+    } else if (score >= 90) {
+        std::cout << "Grade: A" << std::endl;
+    } else if (score >= 80) {
+        std::cout << "Grade: B" << std::endl;
+    } else if (score >= 70) {
+        std::cout << "Grade: C" << std::endl;
+    } else if (score >= 60) {
+        std::cout << "Grade: D" << std::endl;
+    } else {
+        std::cout << "Grade: F" << std::endl;
+    }
+
+    // --- Example 3: the ternary operator - a compact if/else ---
+    // condition ? valueIfTrue : valueIfFalse
+    int n;
+    std::cout << "\nEnter a number to check even/odd: ";
+    std::cin >> n;
+    std::string parity = (n % 2 == 0) ? "even" : "odd";
+    std::cout << n << " is " << parity << std::endl;
+
+    return 0;
+}
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Ask for a year, print whether it's a leap year.
+//    (Rule: divisible by 4, EXCEPT century years like 1900 unless
+//     they're also divisible by 400, like 2000.)
+// 2. Ask for three numbers, print the largest of the three.
+// 3. Ask the user to pick rock, paper, or scissors, hard-code the
+//    computer's choice as "paper", and print who wins.
+//    (This is a taste of your final capstone project!)
+// 4. Challenge: ask for a person's height in meters and weight in
+//    kg, compute BMI = weight / (height*height), and print a
+//    category: <18.5 underweight, 18.5-24.9 normal, 25-29.9
+//    overweight, 30+ obese.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 05_Loops.cpp"
+cat > "05_Loops.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 05: Loops (for, while, do-while)
+// ============================================================
+// Loops let the computer repeat work without you copy-pasting
+// code 100 times. This is where computers start doing things
+// that would be tedious or impossible to do by hand.
+// ============================================================
+
+#include <iostream>
+
+int main() {
+    // --- Example 1: classic counting for loop ---
+    for (int i = 1; i <= 5; i++) {
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
+
+    // --- Example 2: while loop - repeats as long as a condition holds ---
+    int count = 5;
+    while (count > 0) {
+        std::cout << count << "... ";
+        count--;
+    }
+    std::cout << "Liftoff!" << std::endl;
+
+    // --- Example 3: do-while - always runs its body at least once ---
+    int input;
+    do {
+        std::cout << "\nEnter a positive number (0 to stop): ";
+        std::cin >> input;
+        std::cout << "You entered: " << input << std::endl;
+    } while (input != 0);
+
+    // --- Example 4: nested loops - a multiplication table ---
+    std::cout << "\nMultiplication table (1-5):" << std::endl;
+    for (int row = 1; row <= 5; row++) {
+        for (int col = 1; col <= 5; col++) {
+            std::cout << row * col << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    // --- Example 5: the modulo operator % - remainder after division ---
+    std::cout << "\n10 % 3 = " << (10 % 3) << std::endl;   // 1
+    std::cout << "9 % 3 = " << (9 % 3) << std::endl;       // 0 - divides evenly
+
+    return 0;
+}
+
+// ------------------------------------------------------------
+// WATCH OUT: an "infinite loop" happens when the condition never
+// becomes false (e.g. forgetting count-- above). If your program
+// seems frozen, that's almost always what happened - press
+// Ctrl+C in the terminal to force-stop it.
+// ------------------------------------------------------------
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Print all even numbers from 1 to 20 using a for loop and %.
+// 2. Print a triangle of stars, 5 rows tall:
+//      *
+//      **
+//      ***
+//      ****
+//      *****
+// 3. FIZZBUZZ (a famous exercise!): print numbers 1 to 30, but
+//    - if divisible by 3, print "Fizz" instead of the number
+//    - if divisible by 5, print "Buzz" instead
+//    - if divisible by both, print "FizzBuzz"
+// 4. Challenge: use a while loop to find the sum of digits of a
+//    number the user enters (e.g. 1234 -> 1+2+3+4 = 10). Hint:
+//    n % 10 gives the last digit, n / 10 removes it.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 06_Functions.cpp"
+cat > "06_Functions.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 06: Functions
+// ============================================================
+// A function is a named, reusable block of code. You've already
+// been using one every single lesson: int main(). Now you'll
+// write your own.
+// ============================================================
+
+#include <iostream>
+
+// --- Example 1: a function that returns a value ---
+int square(int x) {
+    return x * x;
+}
+
+// --- Example 2: a function with two parameters ---
+int add(int a, int b) {
+    return a + b;
+}
+
+// --- Example 3: a void function - does something, returns nothing ---
+void printLine() {
+    std::cout << "------------------------" << std::endl;
+}
+
+// --- Example 4: a function that calls another function ---
+bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    int num = 4;
+    std::cout << "Square of " << num << " is " << square(num) << std::endl;
+    std::cout << "5 + 3 = " << add(5, 3) << std::endl;
+
+    printLine();
+
+    for (int i = 2; i <= 20; i++) {
+        if (isPrime(i)) {
+            std::cout << i << " is prime" << std::endl;
+        }
+    }
+
+    return 0;
+}
+
+// ------------------------------------------------------------
+// Why bother with functions? Once your programs get bigger than
+// a few lines, functions are how you keep them organized,
+// testable, and reusable - instead of one giant main() nobody
+// (including future you) can read.
+// ------------------------------------------------------------
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Write `int cube(int x)` that returns x*x*x. Test it in main.
+// 2. Write `double celsiusToFahrenheit(double c)` and use it to
+//    convert a few temperatures.
+// 3. Write `int factorial(int n)` (5! = 5*4*3*2*1 = 120) using a
+//    loop inside the function.
+// 4. Challenge: write `bool isPalindromeNumber(int n)` that checks
+//    if a number reads the same forwards and backwards (like 121
+//    or 1331). Hint: reverse the digits and compare.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 07_Vectors.cpp"
+cat > "07_Vectors.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 07: Vectors
+// ============================================================
+// An array holds a fixed number of items. A std::vector is like
+// an array that can grow - you can add items as you go, which is
+// what you'll want almost all of the time.
+// ============================================================
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+int main() {
+    // --- Example 1: creating and printing a vector ---
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+    for (int n : nums) {
+        std::cout << n << " ";
+    }
+    std::cout << std::endl;
+
+    // --- Example 2: adding items with push_back ---
+    std::vector<std::string> friends;
+    friends.push_back("Amirreza");
+    friends.push_back("Sadra");
+    friends.push_back("Mina");
+
+    std::cout << "\nFriends list (" << friends.size() << " people):" << std::endl;
+    for (size_t i = 0; i < friends.size(); i++) {
+        std::cout << i << ": " << friends[i] << std::endl;
+    }
+
+    // --- Example 3: doing math over a vector ---
+    std::vector<int> scores = {85, 92, 78, 95, 60};
+    int sum = 0;
+    int highest = scores[0];
+    for (int s : scores) {
+        sum += s;
+        if (s > highest) highest = s;
+    }
+    double average = (double)sum / scores.size();
+    std::cout << "\nAverage score: " << average << std::endl;
+    std::cout << "Highest score: " << highest << std::endl;
+
+    return 0;
+}
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Make a vector of your 5 favorite numbers, print their sum.
+// 2. Write a loop that finds and prints the SMALLEST value in
+//    the `scores` vector above.
+// 3. Ask the user to enter 5 numbers (using cin in a loop) and
+//    push_back each into a vector, then print the average.
+// 4. Challenge: write a function `int countAbove(std::vector<int> v,
+//    int threshold)` that returns how many items in v are greater
+//    than threshold. Test it with the scores vector.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 08_Strings.cpp"
+cat > "08_Strings.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 08: Strings
+// ============================================================
+// std::string is how C++ represents text. Unlike cin >> which
+// stops at the first space, std::getline reads a WHOLE line -
+// exactly what you need for names, sentences, etc.
+// ============================================================
+
+#include <iostream>
+#include <string>
+
+// Helper function: reverse a string, one character at a time
+std::string reverseString(const std::string& s) {
+    std::string result = "";
+    for (int i = (int)s.length() - 1; i >= 0; i--) {
+        result += s[i];
+    }
+    return result;
+}
+
+int main() {
+    // --- Example 1: reading a full line ---
+    std::string name;
+    std::cout << "Enter your full name: ";
+    std::getline(std::cin, name);
+    std::cout << "Hello, " << name << "!" << std::endl;
+
+    // --- Example 2: string operations ---
+    std::string greeting = "Hello";
+    std::string target = "World";
+    std::string combined = greeting + ", " + target + "!"; // + joins strings
+    std::cout << combined << std::endl;
+    std::cout << "Length: " << combined.length() << " characters" << std::endl;
+    std::cout << "First character: " << combined[0] << std::endl;
+
+    // --- Example 3: using the helper function to reverse a word ---
+    std::string word = "Amirreza";
+    std::cout << "\n" << word << " reversed is " << reverseString(word) << std::endl;
+
+    // --- Example 4: checking a palindrome using the same helper ---
+    std::string test = "level";
+    if (test == reverseString(test)) {
+        std::cout << test << " is a palindrome!" << std::endl;
+    } else {
+        std::cout << test << " is not a palindrome." << std::endl;
+    }
+
+    return 0;
+}
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Ask the user for a word and print whether it's a palindrome
+//    (reuse the reverseString helper above).
+// 2. Ask for a sentence with getline, then count how many vowels
+//    (a, e, i, o, u) it contains.
+// 3. Write a function `int countChar(std::string s, char c)` that
+//    counts how many times a specific character appears.
+// 4. Challenge: capitalize the first letter of every word in a
+//    sentence (hint: look up `toupper` from <cctype>, and find
+//    the spaces to know where each word starts).
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 09_Structs.cpp"
+cat > "09_Structs.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 09: Structs
+// ============================================================
+// A struct groups several related variables into ONE custom type.
+// Instead of separate name/age variables floating around, you get
+// one Person that carries both together - much closer to how we
+// think about real things.
+// ============================================================
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+struct Person {
+    std::string name;
+    int age;
+};
+
+int main() {
+    // --- Example 1: a single struct ---
+    Person p = {"Alice", 30};
+    std::cout << p.name << " is " << p.age << " years old." << std::endl;
+
+    // --- Example 2: a vector of structs - a whole class roster! ---
+    std::vector<Person> classroom;
+    classroom.push_back({"Amirreza", 15});
+    classroom.push_back({"Sadra", 15});
+    classroom.push_back({"Mina", 16});
+
+    std::cout << "\nClassroom roster:" << std::endl;
+    for (const Person& student : classroom) {
+        std::cout << "- " << student.name << " (" << student.age << ")" << std::endl;
+    }
+
+    // --- Example 3: finding the oldest person ---
+    Person oldest = classroom[0];
+    for (const Person& student : classroom) {
+        if (student.age > oldest.age) {
+            oldest = student;
+        }
+    }
+    std::cout << "\nOldest student: " << oldest.name << std::endl;
+
+    return 0;
+}
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Add a `double grade;` field to Person, give everyone a
+//    grade, and print the class average.
+// 2. Write a struct `Point { double x, y; };` and a function
+//    `double distance(Point a, Point b)` using the distance formula
+//    (hint: you'll need sqrt from <cmath>).
+// 3. Add 3 more students to the classroom and print the YOUNGEST.
+// 4. Challenge: write a struct `Book { std::string title,
+//    author; int year; };`, make a vector of 5 books, and print
+//    only the ones published after 2000.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 10_FileIO.cpp"
+cat > "10_FileIO.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 10: File I/O
+// ============================================================
+// Everything your program does disappears when it closes...
+// unless you save it to a file. This is how programs remember
+// things between runs, like high scores or saved settings.
+// ============================================================
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int main() {
+    // --- Example 1: writing to a file ---
+    std::ofstream outFile("data.txt");
+    outFile << 123 << " " << 4.56 << std::endl;
+    outFile << "Hello from the file!" << std::endl;
+    outFile.close();
+    std::cout << "Data written to data.txt" << std::endl;
+
+    // --- Example 2: reading it back ---
+    std::ifstream inFile("data.txt");
+    int a;
+    double b;
+    inFile >> a >> b;
+    std::cout << "Read back: " << a << " and " << b << std::endl;
+    inFile.close();
+
+    // --- Example 3: appending instead of overwriting ---
+    std::ofstream logFile("log.txt", std::ios::app); // app = append
+    logFile << "A new line added without erasing old ones." << std::endl;
+    logFile.close();
+
+    // --- Example 4: checking a file actually opened ---
+    std::ifstream check("this_file_does_not_exist.txt");
+    if (!check.is_open()) {
+        std::cout << "\nAs expected - that file doesn't exist yet." << std::endl;
+    }
+
+    return 0;
+}
+
+// ------------------------------------------------------------
+// ALWAYS check is_open() before trusting a file stream in real
+// programs - files can be missing, misspelled, or permission-
+// blocked, and your program should handle that gracefully
+// instead of silently doing nothing (or crashing).
+// ------------------------------------------------------------
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Write a "diary" program: ask the user for one line of text
+//    and append it to diary.txt every time the program runs.
+// 2. Write a program that reads log.txt line by line (hint:
+//    std::getline(inFile, line) inside a while loop) and prints
+//    each line with a line number in front of it.
+// 3. Save the classroom roster from Lesson 09 to a file, one
+//    student per line.
+// 4. Challenge: write a program that reads a list of numbers from
+//    a file (one per line) and prints their sum and average.
+//    This is exactly the pattern your capstone project uses for
+//    saving high scores!
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 11_SimpleAlgorithm.cpp"
+cat > "11_SimpleAlgorithm.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 11: Simple Algorithms
+// ============================================================
+// An algorithm is just a precise recipe for solving a problem.
+// You already know several without realizing it - here are a
+// few classics every programmer eventually writes by hand.
+// ============================================================
+
+#include <iostream>
+#include <vector>
+#include <algorithm> // for std::swap
+
+// --- Example 1: summing a range ---
+int sumTo(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) sum += i;
+    return sum;
+}
+
+// --- Example 2: recursion - a function that calls itself ---
+int factorial(int n) {
+    if (n <= 1) return 1;           // base case - stops the recursion
+    return n * factorial(n - 1);    // recursive case
+}
+
+// --- Example 3: linear search - check items one by one ---
+int linearSearch(const std::vector<int>& v, int target) {
+    for (size_t i = 0; i < v.size(); i++) {
+        if (v[i] == target) return (int)i; // found it, return the index
+    }
+    return -1; // not found
+}
+
+// --- Example 4: bubble sort - repeatedly swap neighbors out of order ---
+void bubbleSort(std::vector<int>& v) {
+    for (size_t pass = 0; pass < v.size(); pass++) {
+        for (size_t i = 0; i + 1 < v.size(); i++) {
+            if (v[i] > v[i + 1]) {
+                std::swap(v[i], v[i + 1]);
+            }
+        }
+    }
+}
+
+int main() {
+    std::cout << "Sum 1..10 = " << sumTo(10) << std::endl;
+    std::cout << "5! = " << factorial(5) << std::endl;
+
+    std::vector<int> nums = {8, 3, 1, 9, 5};
+    int index = linearSearch(nums, 9);
+    std::cout << "9 found at index: " << index << std::endl;
+
+    bubbleSort(nums);
+    std::cout << "Sorted: ";
+    for (int n : nums) std::cout << n << " ";
+    std::cout << std::endl;
+
+    return 0;
+}
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Write `int findMax(std::vector<int> v)` without using any
+//    library function - just a loop.
+// 2. Write `void countDown(int n)` recursively that prints n,
+//    n-1, ..., down to 1 (each call prints one number).
+// 3. After bubbleSort runs, the vector is sorted - write a
+//    `binarySearch` function that finds a target much faster by
+//    repeatedly checking the middle and eliminating half the list.
+//    (Ask for hints if you get stuck - this one's a real challenge!)
+// 4. Challenge: count how many comparisons linearSearch takes vs.
+//    your binarySearch to find a number in a sorted vector of 1000
+//    items. Which one wins, and why?
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 12_DebuggingExample.cpp"
+cat > "12_DebuggingExample.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// Lesson 12: Debugging
+// ============================================================
+// Every programmer, every single day, deals with code that
+// doesn't do what they expected. Debugging isn't a sign you did
+// something wrong - it's most of the actual job. This lesson is
+// about building the habit of finding bugs calmly and methodically.
+// ============================================================
+
+#include <iostream>
+
+int main() {
+    // ------------------------------------------------------------
+    // ACTIVE BUG: division by zero
+    // ------------------------------------------------------------
+    // Run this program. It will likely crash or behave strangely,
+    // because dividing an integer by zero is undefined behavior.
+    int x = 10, y = 0;
+    int z = x / y;
+    std::cout << "z = " << z << std::endl;
+
+    // ------------------------------------------------------------
+    // HOW TO DEBUG THIS (do these in order):
+    // 1. Read the error/crash message carefully - what line does
+    //    it point to?
+    // 2. Add a std::cout right BEFORE the crash printing the values
+    //    of x and y - is y really 0? Why?
+    // 3. Set a breakpoint on the "int z = x / y;" line in VS Code
+    //    (click just left of the line number) and press F5 to
+    //    start debugging. Step through with F10 and watch the
+    //    Variables panel.
+    // 4. Fix it: add a check `if (y == 0) { ... }` before dividing.
+    // ------------------------------------------------------------
+
+    return 0;
+}
+
+// ============================================================
+// MORE BUGS TO PRACTICE ON
+// ============================================================
+// Comment out the code inside main() above, and try these ONE AT
+// A TIME by pasting each block into main(). Predict what's wrong
+// BEFORE you run it, then confirm.
+
+// --- Bug B: off-by-one error ---
+// std::vector<int> nums = {1, 2, 3, 4, 5};
+// for (int i = 0; i <= nums.size(); i++) {   // bug: should be <
+//     std::cout << nums[i] << std::endl;      // reads past the end!
+// }
+
+// --- Bug C: infinite loop ---
+// int count = 0;
+// while (count < 5) {
+//     std::cout << count << std::endl;
+//     // bug: forgot count++, this never ends. Use Ctrl+C to stop it.
+// }
+
+// --- Bug D: uninitialized variable ---
+// int total;                    // bug: never given a starting value
+// for (int i = 1; i <= 5; i++) {
+//     total += i;                // adding to garbage memory
+// }
+// std::cout << total << std::endl;   // unpredictable result
+
+// --- Bug E: using = instead of == ---
+// int score = 75;
+// if (score = 100) {             // bug: this ASSIGNS 100, always true!
+//     std::cout << "Perfect score!" << std::endl;
+// }
+
+// ============================================================
+// EXERCISES
+// ============================================================
+// 1. Fix Bug B, C, D, and E above (one at a time) and confirm
+//    each one behaves correctly after your fix.
+// 2. Turn on compiler warnings: build with `g++ -Wall -Wextra` -
+//    it will catch Bug D and E automatically! Compilers are
+//    smarter than they get credit for - always read the warnings.
+// 3. Challenge: write a short program with ONE bug you invent
+//    yourself, give it to a friend or classmate, and see how fast
+//    they can find it.
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo "  writing 13_Capstone.cpp"
+cat > "13_Capstone.cpp" <<'CPP101_HEREDOC_EOF'
+// ============================================================
+// CAPSTONE PROJECT: Number Guessing Game
+// ============================================================
+// This is it - your final project for cpp101, and it uses EVERY
+// concept from lessons 1-12: variables, input/output, conditionals,
+// loops, functions, and file I/O for saving your best score.
+// You built all these pieces already. This is where they combine
+// into something you can actually show off.
+// ============================================================
+
+#include <iostream>
+#include <fstream>
+#include <cstdlib>   // for rand(), srand()
+#include <ctime>     // for time()
+
+// Loads the best (fewest-guesses) score ever recorded, or a large
+// default number if no high score file exists yet.
+int loadBestScore() {
+    std::ifstream file("highscore.txt");
+    int best;
+    if (file.is_open() && (file >> best)) {
+        return best;
+    }
+    return 999; // no previous record
+}
+
+// Saves a new best score, overwriting the old one.
+void saveBestScore(int attempts) {
+    std::ofstream file("highscore.txt");
+    file << attempts;
+}
+
+// Plays one round. Returns the number of guesses it took.
+int playRound(int secret) {
+    int guess;
+    int attempts = 0;
+
+    std::cout << "\nI'm thinking of a number between 1 and 100." << std::endl;
+
+    while (true) {
+        std::cout << "Your guess: ";
+        std::cin >> guess;
+        attempts++;
+
+        if (guess < secret) {
+            std::cout << "Too low! Try again." << std::endl;
+        } else if (guess > secret) {
+            std::cout << "Too high! Try again." << std::endl;
+        } else {
+            std::cout << "You got it in " << attempts << " guesses!" << std::endl;
+            return attempts;
+        }
+    }
+}
+
+int main() {
+    srand((unsigned int)time(0)); // seed randomness so numbers differ each run
+
+    int best = loadBestScore();
+    std::cout << "=== Number Guessing Game ===" << std::endl;
+    if (best < 999) {
+        std::cout << "Current best score: " << best << " guesses. Beat it!" << std::endl;
+    }
+
+    char playAgain = 'y';
+    while (playAgain == 'y' || playAgain == 'Y') {
+        int secret = rand() % 100 + 1; // random number 1-100
+        int attempts = playRound(secret);
+
+        if (attempts < best) {
+            best = attempts;
+            saveBestScore(best);
+            std::cout << "New best score! Saved to highscore.txt" << std::endl;
+        }
+
+        std::cout << "\nPlay again? (y/n): ";
+        std::cin >> playAgain;
+    }
+
+    std::cout << "\nThanks for playing! Best score ever: "
+              << best << " guesses." << std::endl;
+    return 0;
+}
+
+// ============================================================
+// IDEAS TO MAKE THIS YOUR OWN (pick any - or all!)
+// ============================================================
+// 1. Add a limited number of attempts (e.g. 7), and print "Game
+//    over" if the player runs out without guessing correctly.
+// 2. Add difficulty levels: Easy (1-50), Medium (1-100), Hard (1-500).
+// 3. Track total games played and win rate, save both to a file.
+// 4. Keep a vector of every guess in the round and print it at
+//    the end as a "guess history."
+// 5. Big challenge: flip it around - YOU think of a number, and
+//    have the computer guess it using binary search (from lesson
+//    11) by asking you "higher or lower?" It'll almost always
+//    win in 7 guesses or fewer. Can you figure out why 7?
+// ============================================================
+CPP101_HEREDOC_EOF
+
+echo
+echo "--- Writing docs, gitignore, run script, and VS Code config ---"
+echo "  writing README.md"
+cat > "README.md" <<'CPP101_HEREDOC_EOF'
+# C++ 101 - Your First Coding Course
+
+A hands-on introduction to C++ for absolute beginners, built lesson by
+lesson toward one goal: by the end, you'll have written a real, working
+game from scratch.
+
+## What you'll build
+
+Fourteen short files, each one small enough to finish in 30-60 minutes,
+each one adding a new tool to your toolbox. Then a capstone project (a
+number-guessing game with saved high scores) that uses everything you
+learned along the way.
+
+## Setup (do this once)
+
+You need a C++ compiler and an editor. VS Code + the C++ extension
+works great for this course.
+
+**Windows:** install [MSYS2](https://www.msys2.org/), then run
+`pacman -S mingw-w64-ucrt-x86_64-gcc` in the MSYS2 terminal to get
+g++. Add the `ucrt64/bin` folder to your PATH so VS Code can find it.
+
+**macOS:** install Xcode Command Line Tools: `xcode-select --install`
+
+**Linux:** `sudo apt install build-essential` (or your distro's
+equivalent)
+
+Then check it worked:
+```bash
+g++ --version
+```
+
+## Running a lesson
+
+The easiest way, from a terminal in this folder:
+```bash
+./run.sh 01_HelloWorld
+```
+This compiles the file into `build/` and runs it right away. You can
+also just use the number:
+```bash
+./run.sh 05
+```
+
+Or in VS Code: open any lesson file and press **Ctrl+Shift+B** to
+build, then **F5** to run with the debugger attached (great for
+Lesson 12!).
+
+## Lessons
+
+| # | File | What you'll learn |
+|---|------|--------------------|
+| 00 | Playground | Just run it - a warm welcome, nothing to learn yet |
+| 01 | Hello World | Program structure, printing text |
+| 02 | Variables | Types, the int-division trap, storing data |
+| 03 | Input/Output | Reading what the user types |
+| 04 | Conditionals | Making decisions with if/else |
+| 05 | Loops | Repeating work with for/while, FizzBuzz |
+| 06 | Functions | Organizing code into reusable pieces |
+| 07 | Vectors | Lists of data that can grow |
+| 08 | Strings | Working with text |
+| 09 | Structs | Grouping related data together |
+| 10 | File I/O | Saving and loading data between runs |
+| 11 | Simple Algorithm | Search, sort, and recursion basics |
+| 12 | Debugging | Finding and fixing bugs on purpose, calmly |
+| 13 | Capstone | Number Guessing Game - everything, combined |
+
+## How to use each lesson file
+
+Every lesson file has the same shape:
+
+1. A short explanation of the concept at the top.
+2. A few worked examples you can build and run immediately.
+3. An **EXERCISES** section at the bottom - do these before moving
+   on. They get progressively harder, and the last one is always a
+   challenge.
+
+Don't just read the code - change it, break it, and see what
+happens. That's genuinely the fastest way to learn this.
+
+## For teachers/mentors
+
+See [TEACHER_NOTES.md](TEACHER_NOTES.md) for pacing, objectives, and
+common pitfalls per lesson.
+CPP101_HEREDOC_EOF
+
+echo "  writing TEACHER_NOTES.md"
+cat > "TEACHER_NOTES.md" <<'CPP101_HEREDOC_EOF'
+# Teacher Notes
+
+## Lesson order and pacing
+
+| # | Lesson | Suggested time | Core objective |
+|---|--------|-----------------|-----------------|
+| 00 | Playground | 5 min | Immediate payoff, zero pressure |
+| 01 | Hello World | 30 min | Program structure, compiling |
+| 02 | Variables | 45 min | Types, int-vs-float division |
+| 03 | Input/Output | 30-45 min | cin, interactive programs |
+| 04 | Conditionals | 45 min | Decision-making, && / \|\| |
+| 05 | Loops | 60 min | for/while, modulo, FizzBuzz |
+| 06 | Functions | 45-60 min | Decomposition, return values |
+| 07 | Vectors | 45-60 min | Growable lists, iteration |
+| 08 | Strings | 45 min | Text, getline vs cin >> |
+| 09 | Structs | 45 min | Custom types, vectors of structs |
+| 10 | File I/O | 45 min | Persistence, ifstream/ofstream |
+| 11 | Simple Algorithm | 60 min | Search, sort, recursion |
+| 12 | Debugging | 45-60 min | Reading errors, using the debugger |
+| 13 | Capstone | 1-2 sessions | Everything, combined into a game |
+
+Adjust freely - a motivated 15-year-old might fly through 03-06 in
+one sitting, or want to linger on loops for an extra session. Follow
+their energy over the clock.
+
+## Teaching philosophy for this course
+
+- **Every lesson produces visible output when run as-is.** A
+  compile-and-nothing-happens lesson feels like failure even when
+  the code is "correct." Never leave a lesson's main() calling
+  nothing (this was fixed in this revision - Lesson 02 previously
+  had all its example calls commented out).
+- **Personalize constantly.** Use the student's own name, friends,
+  and interests in examples wherever you can - it's already woven
+  through this course (Amirreza, Sadra, Mina) and it works. Swap in
+  whatever names/interests fit your student.
+- **Let them break things on purpose.** Lesson 12 exists because
+  debugging confidence, not perfect first-try code, is what keeps
+  someone enrolled in this hobby for years.
+- **The capstone is the point.** Everything before Lesson 13 is in
+  service of that final "I built a real game" moment. Don't skip it,
+  and don't let them see the source until they've played it once.
+
+## Common pitfalls by lesson
+
+- **02:** `4/3` style integer division silently truncating to `1`.
+  Now demonstrated explicitly in `divisionTrap()` - make sure the
+  student can explain WHY before moving on, not just that casting to
+  double "fixes" it.
+- **03:** `std::cin >> name` stopping at the first space. Don't
+  over-explain it here - the fix (getline) has its own payoff in
+  Lesson 08.
+- **05:** Off-by-one loop bounds (`<=` vs `<`), and forgetting to
+  update the loop variable, causing an infinite loop.
+- **07/09:** Index out of range on a vector - C++ won't stop you,
+  it'll just read garbage memory. Worth demonstrating once, safely.
+- **10:** Forgetting to check `is_open()` before reading/writing.
+- **12:** This lesson exists specifically to drill the previous four
+  pitfalls plus `=` vs `==`. Make them predict the bug before
+  running it.
+
+## Assessment ideas
+
+- Have them explain a bug out loud before fixing it - articulating
+  the "why" is a stronger signal of understanding than the fix
+  itself.
+- The EXERCISES sections are meant to be done, not skimmed -
+  spot-check a couple per lesson rather than requiring all of them
+  every time.
+- The capstone project (13) is the natural final assessment: working
+  code, a saved high score, and one of the "make it your own" ideas
+  implemented is a great bar for "finished this course."
+
+## Deployment / environment
+
+- Windows students: MSYS2 + `mingw-w64-ucrt-x86_64-gcc`, add
+  `ucrt64/bin` to PATH. Avoid spaces in the project's folder path.
+- `./run.sh <lesson_name>` works cross-platform (including inside
+  the MSYS2 shell) and doesn't depend on VS Code being configured
+  correctly - useful as a fallback when a student's editor setup
+  breaks.
+- `.vscode/tasks.json` and `launch.json` are committed on purpose
+  (most of `.vscode/` is gitignored, but these two files are shared)
+  so a fresh clone can Ctrl+Shift+B / F5 immediately.
+CPP101_HEREDOC_EOF
+
+echo "  writing .gitignore"
+cat > ".gitignore" <<'CPP101_HEREDOC_EOF'
+# =========================
+# Operating System Files
+# =========================
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+
+# =========================
+# VS Code
+# =========================
+# Most of .vscode/ is machine-specific, but tasks.json and
+# launch.json are committed on purpose so a fresh clone can build
+# and debug immediately (Ctrl+Shift+B / F5).
+
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+
+
+# =========================
+# Build Directories
+# =========================
+
+build/
+Build/
+bin/
+out/
+output/
+dist/
+release/
+debug/
+Debug/
+Release/
+
+
+# =========================
+# C/C++ Compiled Files
+# =========================
+
+# Object files
+*.o
+*.obj
+
+# Executable files
+*.exe
+*.out
+*.app
+*.bin
+
+# Dynamic libraries
+*.dll
+*.so
+*.dylib
+
+# Static libraries
+*.lib
+*.a
+
+# Windows executable metadata
+*.exp
+*.ilk
+*.pdb
+*.idb
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Compiled lesson binaries at the repo root (g++ -o produces no
+# extension on Linux/macOS, so the patterns above alone won't catch
+# these). Listed explicitly so it's obvious what's being ignored.
+/00_Playground
+/01_HelloWorld
+/02_Variables
+/03_InputOutput
+/04_Conditionals
+/05_Loops
+/06_Functions
+/07_Vectors
+/08_Strings
+/09_Structs
+/10_FileIO
+/11_SimpleAlgorithm
+/12_DebuggingExample
+/13_Capstone
+
+
+# =========================
+# Files generated by running the lessons
+# =========================
+
+data.txt
+log.txt
+diary.txt
+highscore.txt
+
+
+# =========================
+# Debugging Files
+# =========================
+
+*.dSYM/
+*.stackdump
+*.core
+
+# GDB / LLDB
+.gdb_history
+.lldbinit
+
+
+# =========================
+# CMake
+# =========================
+
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+Makefile
+compile_commands.json
+CTestTestfile.cmake
+_install/
+install_manifest.txt
+
+
+# =========================
+# Ninja Build
+# =========================
+
+.ninja_deps
+.ninja_log
+
+
+# =========================
+# Compiler Output
+# =========================
+
+*.log
+*.tmp
+*.temp
+
+
+# =========================
+# Python (if mixed projects)
+# =========================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+
+
+# =========================
+# Node / Web Projects (optional)
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# =========================
+# IDE Files
+# =========================
+
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# =========================
+# Generated Documentation
+# =========================
+
+docs/_build/
+
+
+# =========================
+# Environment / Secrets
+# =========================
+
+.env
+.env.*
+*.secret
+
+
+# =========================
+# Temporary Files
+# =========================
+
+*.bak
+*.swp
+*.swo
+*.cache
+CPP101_HEREDOC_EOF
+
+echo "  writing run.sh"
+cat > "run.sh" <<'CPP101_HEREDOC_EOF'
+#!/usr/bin/env bash
+# run.sh - compile and run any lesson by name or number.
+#
+# Usage:
+#   ./run.sh 01_HelloWorld
+#   ./run.sh 05
+#
+# Compiles into build/ (gitignored) and runs it immediately.
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "Usage: ./run.sh <lesson_name_or_number>"
+    echo "Example: ./run.sh 01_HelloWorld   or   ./run.sh 05"
+    echo
+    echo "Available lessons:"
+    ls *.cpp 2>/dev/null | sed 's/\.cpp$//'
+    exit 1
+fi
+
+INPUT="${1%.cpp}"   # strip .cpp if the user included it
+
+# allow a bare number like "05" to match "05_Loops.cpp"
+MATCH=$(ls *.cpp 2>/dev/null | grep -E "^${INPUT}(_.*)?\.cpp$" | head -n 1)
+
+if [ -z "$MATCH" ]; then
+    echo "Couldn't find a lesson matching '$INPUT'"
+    echo "Available lessons:"
+    ls *.cpp 2>/dev/null | sed 's/\.cpp$//'
+    exit 1
+fi
+
+NAME="${MATCH%.cpp}"
+mkdir -p build
+
+echo "Building $MATCH ..."
+g++ -std=c++17 -Wall -Wextra -g "$MATCH" -o "build/$NAME"
+
+echo "Running $NAME:"
+echo "------------------------------------------------------------"
+"./build/$NAME"
+CPP101_HEREDOC_EOF
+
+echo "  writing .vscode/tasks.json"
+mkdir -p ".vscode"
+cat > ".vscode/tasks.json" <<'CPP101_HEREDOC_EOF'
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build active C++ file",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-Wall",
+                "-Wextra",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compiles the currently open .cpp file (Ctrl+Shift+B)"
+        }
+    ]
+}
+CPP101_HEREDOC_EOF
+
+echo "  writing .vscode/launch.json"
+mkdir -p ".vscode"
+cat > ".vscode/launch.json" <<'CPP101_HEREDOC_EOF'
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug active C++ file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "Build active C++ file"
+        }
+    ]
+}
+CPP101_HEREDOC_EOF
+
+
+echo
+echo "--- Making run.sh executable ---"
+chmod +x run.sh
+
+echo
+echo "--- Verifying every lesson compiles ---"
+if command -v g++ >/dev/null 2>&1; then
+    VERIFY_DIR="$(mktemp -d)"
+    FAILED=0
+    for f in *.cpp; do
+        if g++ -std=c++17 -Wall -Wextra -g "$f" -o "$VERIFY_DIR/${f%.cpp}" 2>"$VERIFY_DIR/${f%.cpp}.err"; then
+            echo "  OK    $f"
+        else
+            echo "  FAIL  $f"
+            sed 's/^/        /' "$VERIFY_DIR/${f%.cpp}.err"
+            FAILED=1
+        fi
+    done
+    rm -rf "$VERIFY_DIR"
+    if [ "$FAILED" -ne 0 ]; then
+        echo
+        echo "WARNING: one or more lesson files failed to compile - see above."
+        echo "Files were still written; please review before committing."
+    else
+        echo
+        echo "All lessons compiled cleanly with -Wall -Wextra."
+    fi
+else
+    echo "  g++ not found on PATH - skipping compile verification."
+    echo "  (install a compiler and re-run 'g++ -Wall -Wextra <file>.cpp -o /tmp/test' per file to check)"
+fi
+
+echo
+echo "--- Staging changes (git add -A) ---"
+git add -A
+
+echo
+echo "============================================================"
+echo " Done. Nothing has been committed or pushed."
+echo "============================================================"
+echo
+git status --short
+echo
+echo "Next steps:"
+echo "  1. Review the changes:   git diff --cached --stat"
+echo "  2. Commit when happy:    git commit -m \"Rewrite course: fix bugs, add exercises and capstone\""
+echo "  3. Push:                 git push"
+echo
+echo "If you want to undo everything before committing:"
+echo "  git reset --hard HEAD && git clean -fd"
