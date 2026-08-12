@@ -96,8 +96,3 @@ int main() {
 //    11) by asking you "higher or lower?" It'll almost always
 //    win in 7 guesses or fewer. Can you figure out why 7?
 // ============================================================
-
-
-
-
-
