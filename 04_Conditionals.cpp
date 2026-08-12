@@ -11,25 +11,25 @@
 
 int main() {
     // --- Example 1: basic if / else if / else ---
-    std::cout << (3>1) << std::endl;
-    std::cout << (3<1) << std::endl;
-    std::cout << (999999 > 3333) << std::endl;
-    std::cout << (3>3) << std::endl;
-    std::cout << (3>=3) << std::endl;
-    std::cout << (3<=3) << std::endl; 
-    std::cout << (3<=1) << std::endl;
-    if (3<1){
-        std::cout << "three is bigger thatn one " << std::endl;
+    int x = 15;
+    if (x<0 || x>10) {
+        std::cout << "x is out of range" << std::endl;        
     }
-    else{
-        std::cout << "Ramadan salamat mikonad" << std::endl;
 
-
-
-
-        
+    x = -1;
+    if (x<0 || x>10) {
+        std::cout << "x is out of range" << std::endl;        
     }
-    int x=3;
+    x = 4;
+    if (x<0 || x>10) {
+        std::cout << "x is out of range" << std::endl;        
+    }
+    x = 230;
+    if (x<0 || x>10) {
+        std::cout << "x is out of range" << std::endl;        
+    }
+
+    x=3;
     std::cout << "Enter a number: ";
     // std::cin >> x;
 
@@ -65,8 +65,11 @@ int main() {
     int n;
     std::cout << "\nEnter a number to check even/odd: ";
     std::cin >> n;
-    std::string parity = (n % 2 == 0) ? "even" : "odd";
-    std::cout << n << " is " << parity << std::endl;
+    if (n%2 == 0){
+        std::cout << n << " is even" << std::endl;
+    }
+    else std::cout << n << " is odd" << std::endl;
+   
 
     return 0;
 }

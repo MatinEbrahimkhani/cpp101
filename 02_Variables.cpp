@@ -43,7 +43,7 @@ void circleFacts(double radious) {
     double area = pi * radious * radious;                                    // area
     double sphereVolume = (4.0 / 3.0) * pi * radious * radious * radious;    // FIXED: 4.0/3.0, not 4/3
     double sphereArea = 4 * pi * radious * radious;
-
+    if (area == 10);
     std::cout << "\n--- Circle/Sphere with radius " << radious << " ---" << std::endl;
     std::cout << "Ghotr (diameter) = " << ghotr << std::endl;
     std::cout << "Area = " << area << std::endl;
