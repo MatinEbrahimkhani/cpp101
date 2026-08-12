@@ -11,9 +11,27 @@
 
 int main() {
     // --- Example 1: basic if / else if / else ---
-    int x;
+    std::cout << (3>1) << std::endl;
+    std::cout << (3<1) << std::endl;
+    std::cout << (999999 > 3333) << std::endl;
+    std::cout << (3>3) << std::endl;
+    std::cout << (3>=3) << std::endl;
+    std::cout << (3<=3) << std::endl; 
+    std::cout << (3<=1) << std::endl;
+    if (3<1){
+        std::cout << "three is bigger thatn one " << std::endl;
+    }
+    else{
+        std::cout << "Ramadan salamat mikonad" << std::endl;
+
+
+
+
+        
+    }
+    int x=3;
     std::cout << "Enter a number: ";
-    std::cin >> x;
+    // std::cin >> x;
 
     if (x > 0) {
         std::cout << "Positive" << std::endl;
@@ -26,7 +44,7 @@ int main() {
     // --- Example 2: combining conditions with && (and), || (or) ---
     int score;
     std::cout << "\nEnter a test score (0-100): ";
-    std::cin >> score;
+    std::cin >> score; 
 
     if (score < 0 || score > 100) {
         std::cout << "That's not a valid score." << std::endl;

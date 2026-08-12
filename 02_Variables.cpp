@@ -13,9 +13,8 @@ void basicTypes() {
     int age = 15;              // whole numbers, no decimal point
     double pi = 3.14159;       // decimal numbers (preferred - more precise)
     float price = 9.99f;       // decimal numbers (less precise, smaller) - the 'f' matters!
-    char grade = 'A';          // ONE character, in single quotes
-    bool isStudent = true;     // only true or false
-
+    char grade = 'a';          // ONE character, in single quotes
+    bool isStudent = true;     // only true or false a.k.a. boolean
     std::cout << "age = " << age << std::endl;
     std::cout << "pi = " << pi << std::endl;
     std::cout << "price = " << price << std::endl;

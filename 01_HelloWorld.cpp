@@ -17,7 +17,7 @@ int main() {
 
     // std::endl ends the line (like pressing Enter) and flushes the
     // output so it actually shows up on screen right away.
-    std::cout << "Ramadan's grandson says hi too." << std::endl;
+    std::cout << "رمضان's grandson says hi too." << std::endl;
 
     // You can print numbers just as easily as text - no quotes needed.
     std::cout << "2 + 2 = " << 2 + 2 << std::endl;
