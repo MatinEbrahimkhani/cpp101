@@ -7,7 +7,7 @@
   if/else va function kar koni.
 
   kar hayi ke bayad bokoni:
-  1) Entekhab karbar ra be sorat string begir.
+  1) Entekhab karbar ro be sorat string begir.
      Mishe: "rock", "paper", ya "scissors"
   2) Entekhab computer ham hameh "paper" ast.
   3) Ba estefade az if/else, bebin:
@@ -18,7 +18,7 @@
      - agar user "scissors" va computer "paper" ast,
        pas user bord.
   4) Function bayad yek string bar gardande hast.
-     Baraye hamin in natije ha ra boro back kon:
+     Baraye hamin in natije ha ro boro back kon:
        - "بردی!"
        - "کامپیوتر برد!"
        - "مساوی شد!"

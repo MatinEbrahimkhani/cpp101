@@ -4,13 +4,13 @@
   =========================================================
 
   Salam! in tamrin baraye ine ke chetori ba if/else
-  yek sal ra bebin kabise ast ya na.
+  yek sal ro bebin kabise ast ya na.
 
   Chizayi ke bayad bokoni:
   1) Yek sal be function bede.
   2) Barresi kon ke sal kabise ast ya na.
   3) Agar kabise bod, true return kon; age nabod, false return kon.
-  4) Dar main(), sal ra begir va natije ra namayesh bede.
+  4) Dar main(), sal ro begir va natijasho namayesh bede.
 
   Rule:
   - Agar sal ba 4 baghimandeh 0 bashad, kabise ast.
@@ -29,7 +29,7 @@
     input: 1900
     output: false
 
-  Yadet bashe: TODO ra por kon va logic ra dorost benvis!
+  Yadet bashe: TODO ro por kon va mantegh ro dorost benvis!
   =========================================================
 */
 

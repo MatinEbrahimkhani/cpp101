@@ -8,9 +8,9 @@
 
   Chizayi ke bayad bokoni:
   1) Se adad be function bede.
-  2) Az beyn anha bozorgtarin ra peyda kon.
-  3) Adad bozorgtar ra return kon.
-  4) Dar main(), adad ha ra begir va natije ra namayesh bede.
+  2) Az beyn anha bozorgtarin ro peyda kon.
+  3) Adad bozorgtar ro return kon.
+  4) Dar main(), adad ha ro begir va natije ro namayesh bede.
 
   Nokat:
   - Az if/else estefade kon.
@@ -18,10 +18,10 @@
   - Hich adadi niaz be float ya double nist.
 
   Example:
-    input: 12, 9, 30
+    input: 12 ,9 ,30
     output: 30
 
-  Yadet bashe: TODO ra por kon va function ro tamam kon!
+  Yadet bashe: TODO ro por kon va function ro tamam kon!
   =========================================================
 */
 
