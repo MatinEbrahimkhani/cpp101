@@ -26,17 +26,35 @@
 */
 
 #include <iostream>
-
-int findLargest(int a, int b, int c) {
-    // Kode khodeto inja benevis
+using namespace std;
+double findLargest(double a, double b, double c) {
+  if (a >= b && a >= c){
+     return a;
+  }
+  else if( b >= a &&  b >= c) {
+    return b;
+  }
+  else if(c >= a && c >= b) {
+    return c;
+  }
+  else {
+    return 0;
+  }
+ // Kode khodeto inja benevis
     // TODO:
-}
 
+}
 
 int main(){
     // Input ha ra begir
     // Natije ra chap kon
-
+   // findLargest(5 , 6 , 7);
+    cout << "findlargest"<< endl << "enter three numbers:";
+    double a , b , c;
+    cin  >> a >> b >> c;
+    double largest =  findLargest(a,b,c);
+    cout << "largest number is  "<< largest;
     return 0;
+  
 
 }
