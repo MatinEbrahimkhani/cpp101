@@ -40,15 +40,58 @@
 #include <iostream>
 using namespace std;
 
-string playRPS(string userChoice) {
-    string computerChoice = "paper";
-    // Kode khodeto inja benevis
-    // TODO:
-}
+string playRPS(string userChoice)
+{
+  string computerChoice = "paper";
+  if (computerChoice == userChoice)
+  {
+    return "DRAW";
+  }
+  if (userChoice == "rock")
+  {
+    if (computerChoice == "scissors")
+    {
+      return "You WINS";
+    }
+    else
+    {
+      return "Computer WINS";
+    }
+  }
+  if (userChoice == "scissors")
+  {
+    if (computerChoice == "rock")
+    {
+      return "computer WINS";
+    }
 
-int main() {
-    // Input ha ra begir
-    // Natije ra chap kon
+    else
+    {
+      return "You WIN";
+    }
+  }
 
-    return 0;
+  if (userChoice == "paper")
+  {
+    if (computerChoice == "scissors")
+    {
+      return "computer WINS";
+    }
+    else
+    {   
+        return "You WIN";
+    }
+  }
+  return "Inavalid Input Sozg";
+} 
+
+
+int main()
+{
+  cout << "playRPS" << "Enter your choice:"; // Input ha ra begir
+  string UC;
+  cin >> UC;
+  string result = playRPS(UC); // Natije ra chap kon
+  cout << result;
+  return 0;
 }
