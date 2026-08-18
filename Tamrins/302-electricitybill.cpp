@@ -50,18 +50,47 @@
 #include <iostream>
 using namespace std;
 
-int main(){
-
-    // TODO: masraf-e bargh ra az user begir
-
-    // TODO: check kon ke masraf manfi nabashad
-
-    // TODO: hazine-ye bargh ra hesab kon
-
-    // TODO: agar hazine bishtar az 2000 bood,
-    //       payam-e marboot ra chap kon
-
-    // TODO: natije ra chap kon
-
-    return 0;
+int main()
+{ // TODO: masraf-e bargh ra az user begir
+  double hazine;
+  double usage;
+  cout << "Enter your electricity usage: ";
+  cin >> usage;
+  if (usage < 0)
+  {
+    cout << "it's negetive:" << endl;
+   
+  }
+  if (usage <= 100)
+  {
+    hazine = usage * 5;
+    cout << "your Electricity cost is:" << hazine << endl;
+   
+  }
+  if (usage > 100 && usage <= 300) 
+  {
+    hazine = 100 * 5  + (usage  - 100) * 8;
+    cout << "your Electricity cost is:" << hazine << endl;
+    
+  }
+if (usage > 300) 
+  {
+    hazine = 100 * 5  + 200 * 8 + (usage  - 300) * 12;
+    cout << "your Electricity cost is:" << hazine << endl;
+    
+  }
+  if ( hazine > 2000 ) 
+  {
+    cout << "High electricity bill" <<endl;
+    
+  }
+  return 0;
 }
+// TODO: check kon ke masraf manfi nabashad
+
+// TODO: hazine-ye bargh ra hesab kon
+
+// TODO: agar hazine bishtar az 2000 bood,
+//       payam-e marboot ra chap kon
+
+// TODO: natije ra chap kon
