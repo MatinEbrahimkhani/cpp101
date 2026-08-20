@@ -65,18 +65,42 @@ using namespace std;
 
 int main(){
 
-    // TODO: sen ra az user begir
+    int Gheymat;
+    int daneshjoo;
+    int sen;
+    int moshtari;
+    int daneshamooz;
+    cout << "sen re vared kon:";
+    cin >> sen;    
+    cout << "daneshjoo hasti ya danesh amooz?";
+    cin >> daneshamooz;
+    cin >> daneshjoo;
+    if(sen < 5) 
+    {
+      cout << "belit moft ast";
+    }  // TODO: sen ra az user begir
+    if(5 < sen < 12) 
+    {
+      cout << "Gheymat 100 tooman ast";
+    }
+    if(moshtari = daneshjoo)    
+    {
+      cout << "Gheymat 80 tooman ast";
+    }
+    if(13 < sen < 59) 
+    { 
+      cout << "Gheymat 200 tooman ast";
+    } 
+   if(moshtari = daneshjoo)
+    {
+      cout << "Gheymat 150 tooman ast";
+    }
+    if(sen >= 60)
+    {
+      cout << "Gheymat 120 tooman ast"; 
+    }
+      cin >> daneshjoo;                       
 
-    // TODO: az user bepors ke student ast ya na
-
-    // TODO: gheymat-e belit ra tarif kon
-
-    // TODO: ba if / else if / else sen ra check kon
-
-    // TODO: dar mored-e lazem, ba nested if student
-    //       boodan ra check kon
-
-    // TODO: gheymat-e nahaei ra chap kon
 
     return 0;
 }
