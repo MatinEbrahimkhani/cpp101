@@ -63,44 +63,47 @@
 #include <iostream>
 using namespace std;
 
-int main(){
+int main()
+{
 
-    int Gheymat;
-    int daneshjoo;
-    int sen;
-    int moshtari;
-    int daneshamooz;
-    cout << "sen re vared kon:";
-    cin >> sen;    
-    cout << "daneshjoo hasti ya danesh amooz?";
-    cin >> daneshamooz;
-    cin >> daneshjoo;
-    if(sen < 5) 
-    {
-      cout << "belit moft ast";
-    }  // TODO: sen ra az user begir
-    if(5 < sen < 12) 
-    {
-      cout << "Gheymat 100 tooman ast";
-    }
-    if(moshtari = daneshjoo)    
+  int daneshjoo;
+  int sen;
+  int daneshamooz;
+  cout << "sen re vared kon:";
+  cin >> sen;
+  cout << "daneshamuz hasti?";
+  cin >> daneshamooz;
+  cout << "daneshjoo hasti ?";
+  cin >> daneshjoo;
+  if (sen < 5)
+  {
+    cout << "belit moft ast";
+  } // TODO: sen ra az user begir
+  if (5 < sen && sen < 12)
+  {
+    if (daneshamooz == 1)
     {
       cout << "Gheymat 80 tooman ast";
     }
-    if(13 < sen < 59) 
-    { 
+    else
+    {
+      cout << "Gheymat 100 tooman ast";
+    }
+  }
+  if (13 < sen && sen < 59)
+  {
+    if (daneshamooz == 1)
+    {
       cout << "Gheymat 200 tooman ast";
-    } 
-   if(moshtari = daneshjoo)
-    {
-      cout << "Gheymat 150 tooman ast";
     }
-    if(sen >= 60)
+    else
     {
-      cout << "Gheymat 120 tooman ast"; 
+      cout << "Geymat 150 toman ast";
     }
-      cin >> daneshjoo;                       
-
-
-    return 0;
+  }
+  if (sen >= 60)
+  {
+    cout << "Gheymat 120 tooman ast";
+  }
+  return 0;
 }
