@@ -59,30 +59,25 @@ int main()
   if (usage < 0)
   {
     cout << "it's negetive:" << endl;
-   
   }
   if (usage <= 100)
   {
     hazine = usage * 5;
     cout << "your Electricity cost is:" << hazine << endl;
-   
   }
-  if (usage > 100 && usage <= 300) 
+  if (usage > 100 && usage <= 300)
   {
-    hazine = 100 * 5  + (usage  - 100) * 8;
+    hazine = 100 * 5 + (usage - 100) * 8;
     cout << "your Electricity cost is:" << hazine << endl;
-    
   }
-if (usage > 300) 
+  if (usage > 300)
   {
-    hazine = 100 * 5  + 200 * 8 + (usage  - 300) * 12;
+    hazine = 100 * 5 + 200 * 8 + (usage - 300) * 12;
     cout << "your Electricity cost is:" << hazine << endl;
-    
   }
-  if ( hazine > 2000 ) 
+  if (hazine > 2000)
   {
-    cout << "High electricity bill" <<endl;
-    
+    cout << "High electricity bill" << endl;
   }
   return 0;
 }
