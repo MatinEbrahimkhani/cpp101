@@ -22,9 +22,21 @@ using namespace std;
 // Misal: PrintEvens(10);
 // Khoroji e mord e entezar:
 // 2 4 6 8 10 
-void PrintEvens(int limit)
+void PrintEvents(int number)
 {
-    // TODO: Halghe khodeta inja benvis
+    for(int i = 2; i <=number;i = i + 2)
+    {
+        cout << i <<endl;
+    }
+}
+void EvenNumbers(int number)
+{
+    int sum = 6;
+    for( int i = 0; i >=sum;)
+    {
+        cout << i <<endl;
+        EvenNumbers(6);
+    }
 }
 
 
@@ -237,14 +249,14 @@ void DrawTriangleRightAligned(int height)
 int main()
 {
     cout << "=== Ex 1: Print Evens ===" << endl;
-    PrintEvens(10);
+    PrintEvens(6);
     cout << endl;
-
+    
     cout << "=== Ex 2: Sum Evens ===" << endl;
     SumEvens(6);
     cout << endl;
 
-    cout << "=== Ex 3: Factorial ===" << endl;
+     cout << "=== Ex 3: Factorial ===" << endl;
     CalculateFactorial(5);
     cout << endl;
 

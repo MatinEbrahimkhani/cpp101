@@ -18,7 +18,7 @@ void Salam_be_Hasan(int shomare_salam)
 
     cout << "--------------------" << endl;
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < shomare_salam; i++)
     {
         cout << "Salam Hasan " << i << endl;
     }
@@ -37,7 +37,7 @@ void Countdown(int number)
         number--;
     }
 
-    cout << "Boom!" << endl;
+     cout << "dzzzzzzzzzzz" << endl;
 }
 
 
@@ -47,10 +47,10 @@ void Countdown(int number)
 
 void PrintNumbers(int start, int end)
 {
-    for (int i = start; i <= end; i++)
+    for (int i = start; i <= end; i = i + 1)
     {
         cout << i << endl;
-    }
+    } cout << "dzzzzzzzzzzz" <<endl;
 }
 
 
@@ -60,10 +60,9 @@ void PrintNumbers(int start, int end)
 
 void MultiplicationTable(int number)
 {
-    for (int i = 1; i <= 10; i++)
+    for (int i = 1; i <= number; i++)
     {
-        cout << number << " * " << i
-             << " = " << number * i << endl;
+        cout << i << " * " << i << " = " << i * i << endl;
     }
 }
 
@@ -91,23 +90,23 @@ void SumNumbers(int number)
 
 int main()
 {
-    Salam_be_Hasan(5);
+    //Salam_be_Hasan(5);
 
-    cout << endl;
+    //cout << endl;
 
-    Countdown(5);
+    // Countdown(-7);
 
-    cout << endl;
+    //cout << endl;
 
-    PrintNumbers(3, 7);
+    // PrintNumbers(1 , 2);
 
-    cout << endl;
+    //cout << endl;
 
-    MultiplicationTable(5);
+    // MultiplicationTable(10);
 
-    cout << endl;
+   // cout << endl;
 
-    SumNumbers(5);
+    SumNumbers(7);
 
     return 0;
 }
