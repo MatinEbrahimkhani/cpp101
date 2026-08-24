@@ -1,7 +1,7 @@
 /*
  * ============================================================================
  * C++ Homework Assignment: Loops, Functions, Accumulators, & Nested Loops
- * 
+ *
  * RAHNAMAEE:
  * 1. Kod haye zir ro bekhon va 13 ta tabe ro kamil kon.
  * 2. Signatures (name tabe va vorodi ha) va kodedaghl main() ro avaz nakon.
@@ -21,24 +21,23 @@ using namespace std;
 //
 // Misal: PrintEvens(10);
 // Khoroji e mord e entezar:
-// 2 4 6 8 10 
+// 2 4 6 8 10
 void PrintEvens(int number)
 {
-    for(int i = 2; i <=number;i = i + 2)
+    for (int i = 2; i <= number; i = i + 2)
     {
-        cout << i <<endl;
+        cout << i << endl;
     }
 }
 void EvenNumbers(int number)
 {
     int sum = 6;
-    for( int i = 0; i >=sum;)
+    for (int i = 0; i >= sum;)
     {
-        cout << i <<endl;
+        cout << i << endl;
         EvenNumbers(6);
     }
 }
-
 
 // =====================================================
 // Exercise 2: Sum of Even Numbers
@@ -55,22 +54,20 @@ void SumEvens(int number)
     int sum = 0;
     for (int i = 2; i <= number; i += 2)
     {
-        sum += i;        //sum = sum + i;
+        sum += i; // sum = sum + i;
     }
-    cout << "Sum of evens up to " << number << " = " << sum << endl;
+    cout << number << " = " << sum << endl;
 }
 void SumEvenswhile(int number)
 {
-    int sum= 0;
+    int sum = 0;
     int i = 2;
-    while(i <= number) {
+    while (i <= number)
+    {
         sum = sum + i;
         i += 2;
-    } 
-  cout << "Sum of evens up to " << number << " = " << sum << endl;
-        
-    
-           
+    }
+    cout << "Sum of evens up to " << number << " = " << sum << endl;
 }
 
 // =====================================================
@@ -85,26 +82,33 @@ void SumEvenswhile(int number)
 // 5! = 120
 void CalculateFactorial(int n)
 {
-    // TODO: Halghe va mantegh ro inja benvis
+    int factorial = 1;
+    for (int i = n; i >= 1; i = i - 1)
+    {
+        factorial = i * factorial;
+    }
+    cout << "factrial is" << factorial << endl;
 }
-
 
 // =====================================================
 // Exercise 4: Custom Symbol Line
 // =====================================================
 // TOZIH:
-// Karakter e 'symbol' ro be tedad e 'count' posht sar ham to YE KHAT chap kon.
+// Karakter e 'heshmat' ro be tedad e 'count' posht sar ham to YE KHAT chap kon.
 // Akharesh ham ye 'endl' bezar ke bere khate badi.
-//m + i;
-        
-// Misal: RepeatSymbol('*', 5);
+// m + i;
+
+// Misal: Repeatheshmat('*', 5);
 // Khoroji:
 // *****
-void RepeatSymbol(char symbol, int count)
+void Repeatheshmat(string heshmat, int count)
 {
-    // TODO: Halghe ro inja benvis
-}
 
+    for (int i = 0; i < count; i++)
+    {
+        cout << heshmat;
+    }
+}
 
 // =====================================================
 // Exercise 5: Table of Squares
@@ -120,12 +124,11 @@ void RepeatSymbol(char symbol, int count)
 // 4 squared = 16
 void PrintSquares(int limit)
 {
-    for(int i = 1; i > 2; i++) {
-       cout << i <<"square ="<< endl; 
+    for (int i = 1; i < limit; i++)
+    {
+        cout << "square of" << "  " << i << "  " << "is" <<"   " << i * i<<endl;
     }
-   
 }
-
 
 // =====================================================
 // Exercise 6: Count With Custom Step
@@ -135,12 +138,11 @@ void PrintSquares(int limit)
 //
 // Misal: CountWithStep(5, 20, 5);
 // Khoroji:
-// 5 10 15 20 
+// 5 10 15 20
 void CountWithStep(int start, int end, int step)
 {
     // TODO: Halghe ro inja benvis
 }
-
 
 // =====================================================
 // Exercise 7: Reverse Range (Count Down)
@@ -151,12 +153,11 @@ void CountWithStep(int start, int end, int step)
 //
 // Misal: ReverseRange(10, 6);
 // Khoroji:
-// 10 9 8 7 6 
+// 10 9 8 7 6
 void ReverseRange(int start, int stop)
 {
     // TODO: Halghe ro inja benvis
 }
-
 
 // =====================================================
 // Exercise 8: Sum of Odd Numbers
@@ -171,7 +172,6 @@ void SumOdds(int limit)
 {
     // TODO: Mantegh e accumulator ro inja benvis
 }
-
 
 // =====================================================
 // Exercise 9: Dynamic Multiplication Table
@@ -189,7 +189,6 @@ void CustomMultiplicationTable(int number, int limit)
 {
     // TODO: Halghe ro inja benvis
 }
-
 
 // =====================================================
 // Exercise 10: Powers of Two
@@ -210,7 +209,6 @@ void PrintPowersOfTwo(int maxPower)
     // TODO: Halghe ro inja benvis
 }
 
-
 // =====================================================
 // Exercise 11: Star Triangle Up (Left-Aligned)
 // =====================================================
@@ -228,7 +226,6 @@ void DrawTriangleUp(int height)
     // TODO: Halghe haye to-dar-to ro inja benvis
 }
 
-
 // =====================================================
 // Exercise 12: Star Triangle Down (Left-Aligned)
 // =====================================================
@@ -244,7 +241,6 @@ void DrawTriangleDown(int height)
 {
     // TODO: Halghe haye to-dar-to ro inja benvis
 }
-
 
 // =====================================================
 // Exercise 13: Star Triangle Right-Aligned
@@ -263,33 +259,32 @@ void DrawTriangleRightAligned(int height)
     // TODO: Halghe haye to-dar-to va mantegh e space ro inja benvis
 }
 
-
 // =====================================================
 // Test Runner (Dast be in bakhsh nazan)
 // =====================================================
 int main()
 {
-    cout << "=== Ex 1: Print Evens ===" << endl;
-    PrintEvens(6);
-    cout << endl;
-    
-    cout << "=== Ex 2: Sum Evens ===" << endl;
-    int tt = 10;
-    SumEvens(tt);
-    SumEvenswhile(tt);
-    cout << endl;
+    // cout << "=== Ex 1: Print Evens ===" << endl;
+    // PrintEvens(6);
+    // cout << endl;
+
+    // cout << "=== Ex 2: Sum Evens ===" << endl;
+    // int tt = 10;
+    // SumEvens(tt);
+    // // SumEvenswhile(tt);
+    // cout << endl;
 
     //  cout << "=== Ex 3: Factorial ===" << endl;
-    // CalculateFactorial(5);
+    // CalculateFactorial(10);
     // cout << endl;
 
     // cout << "=== Ex 4: Repeat Symbol ===" << endl;
-    // RepeatSymbol('#', 8);
+    // Repeatheshmat(" AMIRREZA KHLAJI ", 2);
     // cout << endl;
 
-    // cout << "=== Ex 5: Table of Squares ===" << endl;
-    // PrintSquares(4);
-    // cout << endl;
+    cout << "=== 'Ex' 5: Table of Squares ===" << endl;
+    PrintSquares(5);
+    cout << endl;
 
     // cout << "=== Ex 6: Count With Step ===" << endl;
     // CountWithStep(5, 25, 5);
