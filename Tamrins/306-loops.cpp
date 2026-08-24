@@ -22,7 +22,7 @@ using namespace std;
 // Misal: PrintEvens(10);
 // Khoroji e mord e entezar:
 // 2 4 6 8 10 
-void PrintEvents(int number)
+void PrintEvens(int number)
 {
     for(int i = 2; i <=number;i = i + 2)
     {
@@ -102,7 +102,10 @@ void RepeatSymbol(char symbol, int count)
 // 4 squared = 16
 void PrintSquares(int limit)
 {
-    // TODO: Halghe ro inja benvis
+    for(int i = 1; i > 2; i++) {
+       cout << i <<"square ="<< endl; 
+    }
+   
 }
 
 
@@ -249,7 +252,7 @@ void DrawTriangleRightAligned(int height)
 int main()
 {
     cout << "=== Ex 1: Print Evens ===" << endl;
-    PrintEvens(6);
+    EvenNumbers(10);
     cout << endl;
     
     cout << "=== Ex 2: Sum Evens ===" << endl;
