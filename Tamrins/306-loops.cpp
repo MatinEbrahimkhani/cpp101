@@ -52,9 +52,26 @@ void EvenNumbers(int number)
 // Sum of evens up to 6 = 12
 void SumEvens(int number)
 {
-    // TODO: Mantegh e accumulator ro inja benvis
+    int sum = 0;
+    for (int i = 2; i <= number; i += 2)
+    {
+        sum += i;        //sum = sum + i;
+    }
+    cout << "Sum of evens up to " << number << " = " << sum << endl;
 }
-
+void SumEvenswhile(int number)
+{
+    int sum= 0;
+    int i = 2;
+    while(i <= number) {
+        sum = sum + i;
+        i += 2;
+    } 
+  cout << "Sum of evens up to " << number << " = " << sum << endl;
+        
+    
+           
+}
 
 // =====================================================
 // Exercise 3: Factorial Calculator
@@ -78,7 +95,8 @@ void CalculateFactorial(int n)
 // TOZIH:
 // Karakter e 'symbol' ro be tedad e 'count' posht sar ham to YE KHAT chap kon.
 // Akharesh ham ye 'endl' bezar ke bere khate badi.
-//
+//m + i;
+        
 // Misal: RepeatSymbol('*', 5);
 // Khoroji:
 // *****
@@ -252,56 +270,58 @@ void DrawTriangleRightAligned(int height)
 int main()
 {
     cout << "=== Ex 1: Print Evens ===" << endl;
-    EvenNumbers(10);
+    PrintEvens(6);
     cout << endl;
     
     cout << "=== Ex 2: Sum Evens ===" << endl;
-    SumEvens(6);
+    int tt = 10;
+    SumEvens(tt);
+    SumEvenswhile(tt);
     cout << endl;
 
-     cout << "=== Ex 3: Factorial ===" << endl;
-    CalculateFactorial(5);
-    cout << endl;
+    //  cout << "=== Ex 3: Factorial ===" << endl;
+    // CalculateFactorial(5);
+    // cout << endl;
 
-    cout << "=== Ex 4: Repeat Symbol ===" << endl;
-    RepeatSymbol('#', 8);
-    cout << endl;
+    // cout << "=== Ex 4: Repeat Symbol ===" << endl;
+    // RepeatSymbol('#', 8);
+    // cout << endl;
 
-    cout << "=== Ex 5: Table of Squares ===" << endl;
-    PrintSquares(4);
-    cout << endl;
+    // cout << "=== Ex 5: Table of Squares ===" << endl;
+    // PrintSquares(4);
+    // cout << endl;
 
-    cout << "=== Ex 6: Count With Step ===" << endl;
-    CountWithStep(5, 25, 5);
-    cout << endl;
+    // cout << "=== Ex 6: Count With Step ===" << endl;
+    // CountWithStep(5, 25, 5);
+    // cout << endl;
 
-    cout << "=== Ex 7: Reverse Range ===" << endl;
-    ReverseRange(10, 6);
-    cout << endl;
+    // cout << "=== Ex 7: Reverse Range ===" << endl;
+    // ReverseRange(10, 6);
+    // cout << endl;
 
-    cout << "=== Ex 8: Sum Odds ===" << endl;
-    SumOdds(7);
-    cout << endl;
+    // cout << "=== Ex 8: Sum Odds ===" << endl;
+    // SumOdds(7);
+    // cout << endl;
 
-    cout << "=== Ex 9: Custom Multiplication Table ===" << endl;
-    CustomMultiplicationTable(4, 5);
-    cout << endl;
+    // cout << "=== Ex 9: Custom Multiplication Table ===" << endl;
+    // CustomMultiplicationTable(4, 5);
+    // cout << endl;
 
-    cout << "=== Ex 10: Powers of Two ===" << endl;
-    PrintPowersOfTwo(5);
-    cout << endl;
+    // cout << "=== Ex 10: Powers of Two ===" << endl;
+    // PrintPowersOfTwo(5);
+    // cout << endl;
 
-    cout << "=== Ex 11: Star Triangle Up ===" << endl;
-    DrawTriangleUp(4);
-    cout << endl;
+    // cout << "=== Ex 11: Star Triangle Up ===" << endl;
+    // DrawTriangleUp(4);
+    // cout << endl;
 
-    cout << "=== Ex 12: Star Triangle Down ===" << endl;
-    DrawTriangleDown(4);
-    cout << endl;
+    // cout << "=== Ex 12: Star Triangle Down ===" << endl;
+    // DrawTriangleDown(4);
+    // cout << endl;
 
-    cout << "=== Ex 13: Star Triangle Right-Aligned ===" << endl;
-    DrawTriangleRightAligned(4);
-    cout << endl;
+    // cout << "=== Ex 13: Star Triangle Right-Aligned ===" << endl;
+    // DrawTriangleRightAligned(4);
+    // cout << endl;
 
     return 0;
 }
