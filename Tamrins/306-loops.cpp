@@ -141,13 +141,15 @@ void PrintSquares(int limit)
 // 5 10 15 20
 void CountWithStep(int start, int end, int step)
 {
-    // TODO: Halghe ro inja benvis
+    for(int i = 1; i >= end; i = i ++)
+    i  = i + 5;
+    cout << "number is"<< "  " << "=" <<"   " << start<< "  " << start + 5<< "  " << start + 10<< "  " << end - 5 <<endl;
 }
 
 // =====================================================
 // Exercise 7: Reverse Range (Count Down)
 // =====================================================
-// TOZIH:
+// TOZIH:"
 // Adad ro az 'start' be sorate makus (baraks) ta 'stop' chap kon.
 // Az halgheye kam-shonde (i-- ya i -= 1) estefade kon.
 //
@@ -282,13 +284,13 @@ int main()
     // Repeatheshmat(" AMIRREZA KHLAJI ", 2);
     // cout << endl;
 
-    cout << "=== 'Ex' 5: Table of Squares ===" << endl;
-    PrintSquares(5);
-    cout << endl;
-
-    // cout << "=== Ex 6: Count With Step ===" << endl;
-    // CountWithStep(5, 25, 5);
+    // cout << "=== 'Ex' 5: Table of Squares ===" << endl;
+    // PrintSquares(5);
     // cout << endl;
+
+    cout << "=== Ex 6: Count With Step ===" << endl;
+    CountWithStep(5, 25, 5);
+    cout << endl;
 
     // cout << "=== Ex 7: Reverse Range ===" << endl;
     // ReverseRange(10, 6);
