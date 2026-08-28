@@ -126,7 +126,7 @@ void PrintSquares(int limit)
 {
     for (int i = 1; i < limit; i++)
     {
-        cout << "square of" << "  " << i << "  " << "is" <<"   " << i * i<<endl;
+        cout << "square of" << "  " << i << "  " << "is" << "   " << i * i << endl;
     }
 }
 
@@ -141,9 +141,18 @@ void PrintSquares(int limit)
 // 5 10 15 20
 void CountWithStep(int start, int end, int step)
 {
-    for(int i = 1; i >= end; i = i ++)
-    i  = i + 5;
-    cout << "number is"<< "  " << "=" <<"   " << start<< "  " << start + 5<< "  " << start + 10<< "  " << end - 5 <<endl;
+    for (int i = start; i <= end; i = i + step)
+    {
+
+        cout << "mosavi ast ba" << "  " << " = " << "  " << i << endl;
+    }
+    cout << "                              " << endl;
+    int i = start;
+    while (i <= end)
+    {
+        cout << "mosavi ast ba" << "  " << " =   " << i << endl;
+        i = i + step;
+    }
 }
 
 // =====================================================
@@ -158,7 +167,11 @@ void CountWithStep(int start, int end, int step)
 // 10 9 8 7 6
 void ReverseRange(int start, int stop)
 {
-    // TODO: Halghe ro inja benvis
+    for (int i = start; i >= stop; i--)
+    {
+        cout << "  " << i << "  ";
+    }
+    cout << "khorooji shoma";
 }
 
 // =====================================================
@@ -172,16 +185,22 @@ void ReverseRange(int start, int stop)
 // Sum of odds up to 7 = 16
 void SumOdds(int limit)
 {
-    // TODO: Mantegh e accumulator ro inja benvis
+    int sum = 0;
+    for (int i = 1; i <= limit; i = i + 2)
+    {
+        cout << "  " << i;
+        sum = sum + i;
+    }
+    cout << endl
+         << sum << " <--- khoroojie shoma";
 }
-
 // =====================================================
-// Exercise 9: Dynamic Multiplication Table
+// Exercise 9: POOYA Multiplication Table
 // =====================================================
 // TOZIH:
 // Jadval zarb e adade 'number' ro ta 'limit' chap kon (na faghat ta 10).
 //
-// Misal: CustomMultiplicationTable(3, 4);
+// Mesal: CustomMultiplicationTable(3, 4);
 // Khoroji:
 // 3 * 1 = 3
 // 3 * 2 = 6
@@ -189,7 +208,11 @@ void SumOdds(int limit)
 // 3 * 4 = 12
 void CustomMultiplicationTable(int number, int limit)
 {
-    // TODO: Halghe ro inja benvis
+    cout << "  adade shoma barabarand ba" << "  " << " = " << "  " << endl;
+    for (int i = 1; i <= limit; i++)
+    {
+        cout << "  " << number * i << endl;
+    }
 }
 
 // =====================================================
@@ -208,7 +231,24 @@ void CustomMultiplicationTable(int number, int limit)
 // 2^5 = 32
 void PrintPowersOfTwo(int maxPower)
 {
-    // TODO: Halghe ro inja benvis
+    int number = 2;
+    int power = 1;
+    for (int i = 1; i <= maxPower; i++)
+    {
+        power = power * number;
+        cout << number << "^" << i << " = " << power << endl;
+    }
+    cout << "adade shoma inha hstand:";
+
+    for (int i = 0; i <= maxPower; i++)
+    {
+        power = 1;
+        for (int j = 0; j < i; j++)
+        {
+            power *= number;
+        }
+        cout << number << "^" << i << " = " << power << endl;
+    }
 }
 
 // =====================================================
@@ -225,7 +265,14 @@ void PrintPowersOfTwo(int maxPower)
 // ***
 void DrawTriangleUp(int height)
 {
-    // TODO: Halghe haye to-dar-to ro inja benvis
+    for (int i = -1; i < height; i++)
+    {
+        for (int j = -2; j < i; j++)
+        {
+        cout<<"#";
+        }
+        cout<<endl;
+    }
 }
 
 // =====================================================
@@ -288,9 +335,9 @@ int main()
     // PrintSquares(5);
     // cout << endl;
 
-    cout << "=== Ex 6: Count With Step ===" << endl;
-    CountWithStep(5, 25, 5);
-    cout << endl;
+    // cout << "=== Ex 6: Count With Step ===" << endl;
+    // CountWithStep(4, 100, 21);
+    // cout << endl;
 
     // cout << "=== Ex 7: Reverse Range ===" << endl;
     // ReverseRange(10, 6);
@@ -301,16 +348,16 @@ int main()
     // cout << endl;
 
     // cout << "=== Ex 9: Custom Multiplication Table ===" << endl;
-    // CustomMultiplicationTable(4, 5);
+    // CustomMultiplicationTable(2, 20);
     // cout << endl;
 
     // cout << "=== Ex 10: Powers of Two ===" << endl;
     // PrintPowersOfTwo(5);
     // cout << endl;
 
-    // cout << "=== Ex 11: Star Triangle Up ===" << endl;
-    // DrawTriangleUp(4);
-    // cout << endl;
+    cout << "=== Ex 11: Star Triangle Up ===" << endl;
+    DrawTriangleUp(4);
+    cout << endl;
 
     // cout << "=== Ex 12: Star Triangle Down ===" << endl;
     // DrawTriangleDown(4);
