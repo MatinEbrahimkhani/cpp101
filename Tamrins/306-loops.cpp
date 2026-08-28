@@ -269,9 +269,9 @@ void DrawTriangleUp(int height)
     {
         for (int j = -2; j < i; j++)
         {
-        cout<<"#";
+            cout << "#";
         }
-        cout<<endl;
+        cout << endl;
     }
 }
 
@@ -288,7 +288,18 @@ void DrawTriangleUp(int height)
 // *
 void DrawTriangleDown(int height)
 {
-    // TODO: Halghe haye to-dar-to ro inja benvis
+    for (int i = height; i > 0; i = i - 1)
+    {
+        for(int k = height - i;k > 0;k--) {
+             cout << " ";
+        }
+        
+        for (int j = 0; j < i; j++)
+        {
+            cout << "*";
+        }
+        cout << endl;
+    }
 }
 
 // =====================================================
@@ -305,7 +316,18 @@ void DrawTriangleDown(int height)
 // ***
 void DrawTriangleRightAligned(int height)
 {
-    // TODO: Halghe haye to-dar-to va mantegh e space ro inja benvis
+       for (int i = 0; i < height; i++) 
+    {
+        for( int k = height - i;k > 0;k--) { 
+            cout << " ";
+        }
+        
+        for (int j = -1; j < i; j++)
+        {
+            cout << "*";
+        }
+        cout << endl;
+    }
 }
 
 // =====================================================
@@ -355,13 +377,13 @@ int main()
     // PrintPowersOfTwo(5);
     // cout << endl;
 
-    cout << "=== Ex 11: Star Triangle Up ===" << endl;
-    DrawTriangleUp(4);
-    cout << endl;
-
-    // cout << "=== Ex 12: Star Triangle Down ===" << endl;
-    // DrawTriangleDown(4);
+    // cout << "=== Ex 11: Star Triangle Up ===" << endl;
+    // DrawTriangleUp(4);
     // cout << endl;
+
+    cout << "=== Ex 12: Star Triangle Down ===" << endl;
+    DrawTriangleDown(4);
+    cout << endl;
 
     // cout << "=== Ex 13: Star Triangle Right-Aligned ===" << endl;
     // DrawTriangleRightAligned(4);
