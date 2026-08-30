@@ -9,16 +9,18 @@
 // ============================================================
 
 #include <iostream>
-
-int main() {
-    for (int i = 0; i < 10; i++) {
-        std::cout << "Hello Amirreza and Sadra, this is line " << i + 1 << std::endl;
-    }
-
-    std::cout << std::endl;
-    std::cout << "That loop ran 10 times." << std::endl;
-    std::cout << "Change the 10 above to 20, rebuild, and run it again." << std::endl;
-    std::cout << "See what happens if you change '<' to '<='." << std::endl;
-
+using namespace std;
+int main()
+{
+    bool a = 3.14;
+    int b = 3.14;
+    float c = 3.14;
+    double d = '3';
+    char e = 97;
+    cout << "bool   a=\t" << a << endl;
+    cout << "int    b=\t" << b << endl;
+    cout << "float  c=\t" << c << endl;
+    cout << "double d=\t" << char(d) << endl;
+    cout << "double e=\t" << int(e) << endl;
     return 0;
 }
