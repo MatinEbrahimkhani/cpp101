@@ -381,9 +381,9 @@ int main()
     // DrawTriangleUp(4);
     // cout << endl;
 
-    cout << "=== Ex 12: Star Triangle Down ===" << endl;
-    DrawTriangleDown(4);
-    cout << endl;
+    // cout << "=== Ex 12: Star Triangle Down ===" << endl;
+    // DrawTriangleDown(4);
+    // cout << endl;
 
     // cout << "=== Ex 13: Star Triangle Right-Aligned ===" << endl;
     // DrawTriangleRightAligned(4);

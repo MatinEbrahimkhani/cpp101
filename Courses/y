@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+int salamirani(int salamirani) 
+{
+    
+        int x = 9;
+        cout << x << endl;
+    
+}
+int main() {
+        return 0;
+}
