@@ -1,4 +1,4 @@
-```cpp
+
 // ============================================================
 // 01_Variables_Experiment.cpp
 // ============================================================
@@ -18,7 +18,6 @@
 
 #include <iostream>
 using namespace std;
-
 
 // ============================================================
 // EXERCISE 01
@@ -66,14 +65,18 @@ void exercise01()
     cout << "c = " << c << endl;
     cout << "d = " << d << endl;
 
-    // Challenge:
-    //
+    bool e = 42;
+    bool f = 1;
+    bool g = false;
+
+    cout << "e =" << e << endl;
+    cout << "f =" << f << endl;
+    cout << "g =" << g << endl;
     // Ye bool jadid besaz ke meghdar 42 begire.
     //
     // Hadset chie?
     // 0 mishe ya 1?
 }
-
 
 // ============================================================
 // EXERCISE 02
@@ -109,14 +112,17 @@ void exercise02()
     cout << "\n========== EXERCISE 02 ==========\n";
 
     int a = 3.14;
+    int x = -3.99;
     float b = 3.14;
     double c = 3.14;
 
     cout << "int    a = " << a << endl;
+    cout << "int    x = " << x << endl;
     cout << "float  b = " << b << endl;
     cout << "double c = " << c << endl;
 
-    // Challenge:
+    // hadse man
+    // int = 3   float & double = 3.14
     //
     // In ro ezafe kon:
     //
@@ -124,7 +130,6 @@ void exercise02()
     //
     // Befahm C++ ba -3.99 chekar mikone.
 }
-
 
 // ============================================================
 // EXERCISE 03
@@ -163,7 +168,7 @@ void exercise03()
     cout << "\n========== EXERCISE 03 ==========\n";
 
     char a = 'A';
-    char b = 65;
+    char b = 60;
     char c = 97;
 
     cout << "a = " << a << endl;
@@ -181,7 +186,6 @@ void exercise03()
     //
     // Output ro check kon.
 
-
     // Challenge-e dovom:
     //
     // In ro uncomment kon:
@@ -190,7 +194,6 @@ void exercise03()
     //
     // Chera A tabdil be 65 mishe?
 }
-
 
 // ============================================================
 // EXERCISE 04
@@ -221,13 +224,13 @@ void exercise04()
 {
     cout << "\n========== EXERCISE 04 ==========\n";
 
-    double x = 9.99;
-    int y = int(x);
+    double x = 9.111111111;
+    double g = double(x);
 
     cout << "x = " << x << endl;
-    cout << "y = " << y << endl;
+    cout << "g = " << g << endl;
 
-    char letter = char(66);
+    char letter = char(60);
 
     cout << "letter = " << letter << endl;
 
@@ -244,7 +247,6 @@ void exercise04()
     //
     // Ghabl az run javab bede.
 
-
     // Challenge-e bishtar:
     //
     // int number = 65;
@@ -255,7 +257,6 @@ void exercise04()
     // char letter2 = 'A';
     // cout << int(letter2) << endl;
 }
-
 
 // ============================================================
 // EXERCISE 05
@@ -297,7 +298,7 @@ void exercise05()
     int a = 7;
     int b = 2;
 
-    double result1 = a / b;
+    double result1 = 7 / 2;
     double result2 = 7.0 / 2;
     double result3 = 7 / 2.0;
 
@@ -315,7 +316,6 @@ void exercise05()
     // type-e operation mohem-e, na faghat type-e
     // variable-i ke natije ro receive mikone.
 
-
     // Challenge-e asli:
     //
     // In ro besaz:
@@ -326,7 +326,6 @@ void exercise05()
     //
     // Bad ye ravesh peyda kon ke z = 2.5 beshe.
 }
-
 
 // ============================================================
 // EXERCISE 06
@@ -363,7 +362,7 @@ void exercise06()
 {
     cout << "\n========== EXERCISE 06 ==========\n";
 
-    int x = 2147483647;
+    int x = 2147483641;
 
     cout << "Before: " << x << endl;
 
@@ -380,7 +379,6 @@ void exercise06()
     // Hadaf in exercise fahmidan-e mahdoodiyat-e
     // type-e integer ast.
 }
-
 
 // ============================================================
 // EXERCISE 07
@@ -422,10 +420,9 @@ void exercise07()
 
     bool a = true;
     char b = 'A';
-    int c = 100;
+    int c = 10000000;
     float d = 3.14f;
-    double e = 3.14;
-
+    float e = 3.14;
     cout << "sizeof(bool)   = " << sizeof(bool) << endl;
     cout << "sizeof(char)   = " << sizeof(char) << endl;
     cout << "sizeof(int)    = " << sizeof(int) << endl;
@@ -447,7 +444,6 @@ void exercise07()
     //
     // Chera?
 
-
     // Challenge-e bishtar:
     //
     // In do ta ro check kon:
@@ -457,7 +453,6 @@ void exercise07()
     //
     // Aya in do ta yeki hastan?
 }
-
 
 // ============================================================
 // EXERCISE 08
@@ -496,15 +491,13 @@ void exercise08()
     cout << "\n========== EXERCISE 08 ==========\n";
 
     const int age = 20;
-
     cout << "age = " << age << endl;
 
     // Uncomment this line and compile again:
     //
-    // age = 25;
+    // const int age = 25;
     //
     // Compiler che chizi behet mige?
-
 
     // Challenge:
     //
@@ -512,7 +505,6 @@ void exercise08()
     //
     // Try kon PI ro taghir bedi.
 }
-
 
 // ============================================================
 // EXERCISE 09
@@ -555,39 +547,37 @@ void exercise09()
     }
 
     cout << "Outside 2: " << x << endl;
-
-    // Challenge:
-    //
-    // Yek block-e jadid besaz:
-    //
-    // {
-    //     int x = 100;
-    //     cout << x << endl;
-    // }
-    //
-    // Aya x-e asli taghir karde?
-
-
-    // Challenge-e tricky:
-    //
-    // In code ro dar zehnet analyze kon:
-    //
-    // int x = 10;
-    //
-    // {
-    //     int x = 20;
-    //
-    //     {
-    //         int x = 30;
-    //         cout << x << endl;
-    //     }
-    // }
-    //
-    // Se ta x darim!
-    //
-    // Har kodom متعلق be kodoom scope hast?
 }
+// Challenge:
+//
+// Yek block-e jadid besaz:
+//
+// {
+//     int x = 100;
+//     cout << x << endl;
+// }
+//
+// Aya x-e asli taghir karde?
 
+// Challenge-e tricky:
+//
+// In code ro dar zehnet analyze kon:
+//
+// int x = 10;
+//
+// {
+//     int x = 20;
+//
+//     {
+//         int x = 30;
+//         cout << x << endl;
+//     }
+// }
+//
+// Se ta x darim!
+//
+// Har kodom متعلق be kodoom scope hast?
+// }
 
 // ============================================================
 // EXERCISE 10
@@ -640,51 +630,50 @@ void exercise10()
     cout << "e = " << e << endl;
     cout << "f = " << f << endl;
     cout << "g = " << g << endl;
-
-
-    // ========================================================
-    // FINAL CHALLENGE
-    // ========================================================
-    //
-    // Without running the program, answer these questions:
-    //
-    // 1. Why is b not an int?
-    //
-    // 2. What happened to .99 when c was stored in d?
-    //
-    // 3. Why does e print a character?
-    //
-    // 4. Why does f print a number?
-    //
-    // 5. Why is g equal to 1?
-    //
-    // 6. Which conversions happened automatically?
-    //
-    // 7. Which conversions did YOU explicitly request?
-    //
-    // 8. Which variables contain the same information
-    //    but represent it using different types?
 }
-
-
-// ============================================================
-// MAIN
-// ============================================================
-
+// ========================================================
+// FINAL CHALLENGE
+// ========================================================
+//
+// Without running the program, answer these questions:
+//
+// 1. Why is b not an int? becuase we were copy that as a.
+//
+// 2. What happened to .99 when c was stored in d? we made that to sahih number.
+//
+// 3. Why does e print a character? A = 65.
+//
+// 4. Why does f print a number? e = 65.
+//
+// 5. Why is g equal to 1? 1 = true.
+//
+// 6. Which conversions happened automatically? e
+//
+// 7. Which conversions did YOU explicitly request? f
+//
+// 8. Which variables contain the same information
+//    but represent it using different types? g
+// }
+void KHALAJICL()
+{
+    for (int i = 0; i < 256; i++)
+    {
+        cout << "adad = " << i << "   " << char(i) << " " << "\t\n";
+    }
+    cout << "rahbare shahidam.cpp";
+}
 int main()
 {
-    exercise01();
-    exercise02();
-    exercise03();
-    exercise04();
-    exercise05();
-    exercise06();
-    exercise07();
-    exercise08();
-    exercise09();
-    exercise10();
-
+    // exercise01();
+    // exercise02();
+    // exercise03();
+    //  exercise04();
+    //  exercise05();
+    //  exercise06();
+    //  exercise07();
+    //  exercise08();
+    //  exercise09();
+    //  exercise10();
+    KHALAJICL();
     return 0;
 }
-
-
