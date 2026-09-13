@@ -671,7 +671,7 @@ int main()
     //  exercise05();
     //  exercise06();
     //  exercise07();
-    //  exercise08();
+     exercise08();
     //  exercise09();
     //  exercise10();
     KHALAJICL();
