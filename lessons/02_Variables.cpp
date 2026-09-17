@@ -54,6 +54,7 @@ void circleFacts(double shoaa) {
 }
 
 int main() {
+    int a =12 ; 
     basicTypes();
     divisionTrap();
     circleFacts(5);
