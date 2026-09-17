@@ -5,7 +5,7 @@
 // Barkhelaf-e array-e mamoli (andaze sabet), vector flexible,
 // amn, va por az tool-e amade-st.
 //
-// Rahnamay-e Finglish: vector mesle yek list-e keshsan-st —
+// Rahnamay-e Finglish: vector mesle yek list-e keshsan-s=t —
 // har vaght ja kam ovordi, push_back kon ta bozorgtar beshe.
 //
 // KEY BENEFITS (maziyat-ha):
@@ -68,18 +68,18 @@ using namespace std;    // in file az "vector<int>" bedoon-e std:: estefade miko
 
 void example1_create() {
     cout << "\n--- Example 1: Creating vectors ---\n";
-
-    // Vector-e khali: felan hich item-i nadarad.
-    vector<int> scores;
-
-    // Vector ba item-haye avalie:
+   // Vector ba item-haye avalie:
     vector<int> ages = {15, 16, 14};
+    // Vector-e khali: felan hich item-i nadarad.
+    vector<int> scores = {ages};
+
+ 
 
     // Vector-e string:
     vector<string> names = {"Ali", "Sara", "Reza"};
 
-    cout << "First age: " << ages[0] << "\n";
-    cout << "First name: " << names[0] << "\n";
+    cout << "First age: " << ages[10] << "\n";
+    cout << "First name: " << names[1] << "\n";
     cout << "Number of scores: " << scores.size() << "\n";
 }
 
@@ -131,12 +131,14 @@ void example3_change() {
     cout << "\n--- Example 3: Changing an item ---\n";
 
     vector<int> numbers = {10, 20, 30};
-
+    cout << numbers[0] << "\n"; 
+    cout << numbers[1] << "\n"; 
+    cout << numbers[2] << "\n"; 
     numbers[1] = 99;
-
-    cout << numbers[0] << "\n"; // 10
-    cout << numbers[1] << "\n"; // 99
-    cout << numbers[2] << "\n"; // 30
+    cout << "_______________________________"<< endl;
+    cout << numbers[0] << "\n"; 
+    cout << numbers[1] << "\n"; 
+    cout << numbers[2] << "\n"; 
 }
 
 
@@ -156,7 +158,7 @@ void example3_change() {
 void example4_size() {
     cout << "\n--- Example 4: size() ---\n";
 
-    vector<string> pets = {"cat", "dog", "fish"};
+    vector<string> pets = {"cat", "dog", "fish","cow","cheetah", "sheep"};
 
     cout << "Number of pets: " << pets.size() << "\n";
 }
@@ -247,21 +249,21 @@ void example8_if() {
     vector<int> scores = {14, 9, 18};
 
     if (scores[0] >= 10) {
-        cout << "Score 1: pass\n";
+        cout << "Score 1: pass"<< endl;
     } else {
-        cout << "Score 1: try again\n";
-    }
+        cout << "Score 1: RiiiiiiDiiiiii\n"<< endl;
+    } 
 
     if (scores[1] >= 10) {
         cout << "Score 2: pass\n";
     } else {
-        cout << "Score 2: try again\n";
+        cout << "Score 2: RiiiiiiDiiiiii\n\n";
     }
 }
 
 
 // ------------------------------------------------------------
-// 9. JAM-E ADAD-HA BA HAM (Simple total)
+// 9. JAM-E ADAD-HA BA HAM (Simple total)2e
 // ------------------------------------------------------------
 //
 // Baraye jam kardan, yek variable be esm total misazim.
@@ -272,59 +274,76 @@ void example8_if() {
 void example9_total() {
     cout << "\n--- Example 9: Adding vector values ---\n";
 
-    vector<int> prices = {10, 25, 5};
-
+    vector<int> prices = {10, 25, 5,12,14,12,49,-255,25,54};
     int total = 0;
-    total = total + prices[0]; // 0 + 10 = 10
-    total = total + prices[1]; // 10 + 25 = 35
-    total = total + prices[2]; // 35 + 5 = 40
 
+    for(int i = 0;i< prices.size();i++)
+    {
+        total= total + prices[i];
+    }
     cout << "Total price: " << total << "\n";
 }
 
 
 // ------------------------------------------------------------
-// 10. YEK USE CASE: LIST-E KHARID (Shopping list)
-// ------------------------------------------------------------
+// 10. YEK USE CASE: LIST-E KHARID (shopping_list list)
+// --------------------------12,14,12,49,-255, 25,54----------------------------------
 //
 // Baraye item-haye gheyre adadi mesle esm, vector<string> darim.
 // Dar in mesal yek list az kala-ha darim.
 // Baraye sadegi faghat item-ha ra chap mikonim.
 
-void example10_shopping_list() {
-    cout << "\n--- Example 10: Shopping list ---\n";
+void example10_shopping_list_list() {
+    cout << "\n--- Example 10: shopping_list list ---\n";
 
-    vector<string> shopping = {"bread", "milk", "apples"};
+    
+    vector<string> shopping_list = {"bread", "milk", "apples","Gagalili"};
 
-    cout << "Item 1: " << shopping[0] << "\n";
-    cout << "Item 2: " << shopping[1] << "\n";
-    cout << "Item 3: " << shopping[2] << "\n";
+    cout << "Item 1: " << shopping_list[0] << "\n";
+    cout << "Item 2: " << shopping_list[1] << "\n";
+    cout << "Item 3: " << shopping_list[2] << "\n";
 
-    shopping.push_back("rice");
+    shopping_list.push_back("rice");
 
-    cout << "Added one item. New count: " << shopping.size() << "\n";
+    cout << "Added one item. New count: " << shopping_list.size() << "\n";
 }
 
 
 // ------------------------------------------------------------
 // 11. TAMRIN-E KUTAH BARAYE CLASS
 // ------------------------------------------------------------
-//
+//xample2_index();xample2_index();
+    // example3_change();
+    // example4_size();
+    // example5_push_back();
+    // example6_pop_back();
+    // example7_input();
+    // example8_if();
+    // example9_total();
+    // exampl
+    // example3_change();
+    // example4_size();
+    // example5_push_back();
+    // example6_pop_back();
+    // example7_input();
+    // example8_if();
+    // example9_total();
+    // exampl
 // Ghabl az run kardan, khodet javab bede:
 //
 // A) vector<int> a = {4, 7, 2};
-//    a[1] che adadi ast?             Javab: ______
+//    a[1] che adadi ast?   numbers[2] =           Javab: ___2___
 //
 // B) a[0] = 9;
-//    a[0] alan chande?               Javab: ______
+//    a[0] alan chande?               Javab: __9____
 //
 // C) a.push_back(6);
-//    size() chande?                  Javab: ______
+//    size() chande?                  Javab: ____4__
 //
 // D) a.pop_back();
-//    size() chande?                  Javab: ______
+//    size() chande?                  Javab: ___3___
 //
-// E) Agar vector 4 item dashte bashad, index-e akhar chande? ______
+// E) Agar vector 4 item dashte bashad, index-e akhar chande? ___3___
 //
 // Yadet bashe: index az 0 shoroo mishavad.
 
@@ -335,16 +354,16 @@ int main() {
     // Baraye didan-e natije-ye har bakhsh, faghat function-e marboot ra
     // az comment kharej kon (// ra hazf kon) ya function-ha ra yeki-yeki seda bezan.
 
-    example1_create();
-    example2_index();
-    example3_change();
-    example4_size();
-    example5_push_back();
-    example6_pop_back();
-    example7_input();
-    example8_if();
+    // example1_create();
+    //example2_index();
+    // example3_change();
+    // example4_size();
+    // example5_push_back();
+    // example6_pop_back();
+    // example7_input();
+    // example8_if();
     example9_total();
-    example10_shopping_list();
+    example10_shopping_list_list();
 
     return 0;
 }
