@@ -27,19 +27,19 @@ using namespace std;
 //
 // vector<int> a = {6, 12, 19, 25};
 //
-// A) a[0] chande?
-// B) a[2] chande?
-// C) a[3] chande?
-// D) size() chande?
-// E) Akharin index chande?
-// F) a[4] mojood ast? Chera?
+// A) a[0] chande? 6
+// B) a[2] chande? 19
+// C) a[3] chande? 25
+// D) size() chande? 4
+// E) Akharin index chande? 25
+// F) a[4] mojood ast? Chera? kheir, chon ta 3 index darim :)
 //
 // HAND WORK:
 // Index:       0      1      2      3
 // Value:      ____   ____   ____   ____
 //
 // Javab-ha:
-// A ____  B ____  C ____  D ____  E ____  F __________________
+// A __6__  B __19__  C __25__  D __4__  E __25__  F __ghoftam bala behet________________
 
 
 // ------------------------------------------------------------
@@ -47,18 +47,18 @@ using namespace std;
 // ------------------------------------------------------------
 // Code:
 //
-// vector<int> a = {3, 8, 5};
+// vector<int> a = {10, 8, 7};
 // a[0] = 10;
 // a[2] = 7;
 //
-// A) Vector-e nahayi chiye?
-// B) size() taghyir mikone ya na?
+// A) Vector-e nahayi chiye? 7
+// B) size() taghyir mikone ya na? na. dadash chera bayad taghir kone?
 //
 // HAND WORK:
-// Ghabl:  [____, ____, ____]
-// Dastoor 1 ba'd: [____, ____, ____]
-// Dastoor 2 ba'd: [____, ____, ____]
-// size() = ____
+// Ghabl:  [__5__, __8__, __3__]
+// Dastoor 1 ba'd: [__10__, __8__, __3__]
+// Dastoor 2 ba'd: [__10__, __8__, __7__]
+// size() = __3__
 
 
 // ------------------------------------------------------------
@@ -66,19 +66,19 @@ using namespace std;
 // ------------------------------------------------------------
 // Code:
 //
-// vector<int> a = {2, 4};
+// vector<int> a = {2, 4, 9, 1};
 // a.push_back(9);
 // a.push_back(1);
 //
-// A) Vector-e nahayi ra benevis.
-// B) size() chande?
-// C) Index-e adad 9 chande?
-// D) Index-e adad 1 chande?
+// A) Vector-e nahayi ra benevis. neveshtam dooctoor
+// B) size() chande? size aval = 2 , size nahayee = 4
+// C) Index-e adad 9 chande? 2
+// D) Index-e adad 1 chande?  3
 //
 // HAND WORK:
-// Start:             [____, ____]            size = ____
-// After push_back 9: [____, ____, ____]      size = ____
-// After push_back 1: [____, ____, ____, ____] size = ____
+// Start:             [__2__, __4__]            size = __2__
+// After push_back 9: [__2__, __4__, __9__]      size = __3__
+// After push_back 1: [__2__, __4__, __9__, __1__] size = __4__
 
 
 // ------------------------------------------------------------
@@ -90,14 +90,14 @@ using namespace std;
 // a.pop_back();
 // a.pop_back();
 //
-// A) Vector-e nahayi chiye?
-// B) size() chande?
-// C) Akharin item-e baghimande chande?
+// A) Vector-e nahayi chiye? ye chi too maye haye in = {11, 22}
+// B) size() chande? 2
+// C) Akharin item-e baghimande chande? 22 ba indexe 1
 //
 // HAND WORK:
-// Start:             [____, ____, ____, ____] size = ____
-// After pop_back:    [____, ____, ____, ____] size = ____
-// After pop_back:    [____, ____, ____, ____] size = ____
+// Start:             [__11__, __22__, __33__, __44__] size = __4__
+// After pop_back:    [__11__, __22__, __33__, ____] size = __3__
+// After pop_back:    [__11__, __22__, ____, ____] size = __2__
 
 
 // ------------------------------------------------------------
@@ -105,14 +105,14 @@ using namespace std;
 // ------------------------------------------------------------
 // Baraye har vector, size() va akharin index ra peyda kon.
 //
-// A) vector<int> a = {5};
-// B) vector<int> b = {5, 7, 9};
-// C) vector<int> c = {1, 2, 3, 4, 5};
+// A) vector<int> a = {5}; size = 1, index = 0
+// B) vector<int> b = {5, 7, 9}; size = 3 index = 0 , 1 , 2
+// C) vector<int> c = {1, 2, 3, 4, 5}; size = 5 index  = 0 , 1 , 2 , 3 , 4
 //
 // HAND WORK:
-// Vector A: size = ____  last index = ____
-// Vector B: size = ____  last index = ____
-// Vector C: size = ____  last index = ____
+// Vector A: size = __1__  last index = __0__
+// Vector B: size = __3__  last index = __0 , 1 , 2__
+// Vector C: size = __5__  last index = __0 , 1 , 2 , 3 , 4__
 //
 // Yadآvari: size tedad-e item-hast; index az sefr shoroo mishavad.
 
