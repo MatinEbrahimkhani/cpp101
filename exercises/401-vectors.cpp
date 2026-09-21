@@ -210,11 +210,12 @@ void exersize09()
 {
   cout << "natijeye fa'liate 08 :" << "\n";
   vector<int> hajiloo = {12, 5, 8};
-  int total = 0;  
-  for (int i = 0; i < hajiloo.size(); i++) {
-   total = total + hajiloo[i];
-     cout << "natije mishe = "<<total<<"\n";
-    }
+  int total = 0;
+  for (int i = 0; i < hajiloo.size(); i++)
+  {
+    total = total + hajiloo[i];
+    cout << "natije mishe = " << total << "\n";
+  }
 }
 // HAND WORK:
 // total aval = __0__
@@ -228,12 +229,20 @@ void exersize09()
 // ------------------------------------------------------------
 // EXERCISE 10 — LIST-E ESM-HA
 // ------------------------------------------------------------
-vector<string> friends = {"Nima", "Tara", "Omid"};
-friends.push_back(laleh)
+void exersize10()
+{
+  cout << "natijeye fa'liate 10 :" << "\n";
+  vector<string> friends = {"Nima", "Tara", "Omid"};
+  friends.push_back("laleh");
+  cout << "size" << friends.size() << "\n";
+  cout << "tara ro mikhay? befarma = " << friends[1] << "\n";
+  cout << "inam az laleh = " << friends[3] << "\n";
+}
+
 // A) Dastoor-e chap kardan-e "Tara" ra benevis.
 // B) "Laleh" ra ba push_back ezafe kon.
-// C) size() ba'd az ezafe kardan chande?
-// D) Item-e jadid dar kodam index ast?
+// C) size() ba'd az ezafe kardan chande? 4
+// D) Item-e jadid dar kodam index ast? 3
 //
 // HAND WORK:
 // Start: [____________, ____________, ____________]
@@ -266,14 +275,14 @@ friends.push_back(laleh)
 // ------------------------------------------------------------
 // Code ra trace kon:
 //
-// vector<int> a = {2, 4, 6};
+// vector<int> a = {2, 9, 6};
 // a[1] = 9;
 // a.push_back(12);
 // a.pop_back();
 //
-// A) Vector-e nahayi?
-// B) size()?
-// C) a[1]?
+// A) Vector-e nahayi? 6
+// B) size()? 3
+// C) a[1]? 9
 //
 // HAND WORK:
 // Start:                  [____, ____, ____] size = ____
@@ -286,6 +295,28 @@ friends.push_back(laleh)
 // ------------------------------------------------------------
 // Barname-i benevis ke 3 nomre az karbar begirad.
 // Bad:
+void exersize13()
+{
+  cout << "natijeye fa'liate 013 :" << "\n";
+
+  vector<int> scores = {11, 9, 17};
+  cout << "te'dade nomarat = " << scores.size() << "\n";
+  cout << "nomreye aval =" << scores[0] << "\n";
+
+  for (int i = 0; i < scores.size(); i++)
+  {
+
+    if (scores[i] > 10)
+    {
+      cout << i << "th score has been pass" << "\n";
+    }
+    else
+    {
+      cout << i << "th score you haven't pass" << "\n";
+    }
+  }
+}
+
 // - nomre-ye aval ra chap konad.
 // - agar nomre-ye dovom 10 ya bishtar bood "second score: pass"
 //   chap konad; dar gheyr-e in soorat "second score: retry" chap konad.
@@ -304,6 +335,23 @@ friends.push_back(laleh)
 // ------------------------------------------------------------
 // EXERCISE 14 — KHARID-E KOCHAK
 // ------------------------------------------------------------
+void exersize14()
+{
+  vector<int> prices = {7, 4, 6};
+  int total = 0;
+  for (int i = 0; i < prices.size(); i++)
+  {
+    total = total + prices[i];
+    
+  }
+  cout << "natije mishe = " << total << "\n";
+  if(total >= 15) {
+    cout << "khoobe";
+  }
+  else {
+    cout << "khaq too saret ";
+  }
+}
 // 3 gheymat dar vector gharar darand: {7, 4, 6}.
 // Barname-i benevis ke:
 // - total ra ba jam-e se item hesab konad.
@@ -324,7 +372,16 @@ friends.push_back(laleh)
 // EXERCISE 15 — CHALLENGE: SAKHTAN-E VECTOR BA VOROODI
 // ------------------------------------------------------------
 // Barname-i benevis ke:
-// 1) yek vector<int> khali besazad.
+void exersize15() {
+  vector<int>web;
+web.push_back(10);
+web.push_back(20);
+web.push_back(30);
+cout << "te'dade adad ha = " << web.size() << "\n";
+cout << "first number = " << web[0] << "\n";
+cout << "second number = " << web[2] << "\n";
+}
+
 // 2) az karbar yek adad begirad va ba push_back ezafe konad.
 // 3) adad-e dovom ra ham begirad va ezafe konad.
 // 4) adad-e sevvom ra ham begirad va ezafe konad.
@@ -346,18 +403,21 @@ friends.push_back(laleh)
 // ------------------------------------------------------------
 // OPTIONAL SELF-CHECK — JAVABHA RA BA'D AZ TAMAM KARDAN BENEVIS
 // ------------------------------------------------------------
-// 1) Index az chand shoroo mishavad? __________________________
-// 2) size() tedad ra mide ya index ra? ________________________
-// 3) push_back() chi kar mikone? ______________________________
-// 4) pop_back() chi kar mikone? _______________________________
-// 5) Agar size() = 5 bashad, akharin index chande? _____________
-// 6) Aya vector<int> mitavand string negah darad? ______________
+// 1) Index az chand shoroo mishavad? ______az 0____________________
+// 2) size() tedad ra mide ya index ra? ______tedad__________________
+// 3) push_back() chi kar mikone? _________________adade morede nazar ro be enteha azafe mikone_____________
+// 4) pop_back() chi kar mikone? _____akharin adad ro hazf mikone__________________________
+// 5) Agar size() = 5 bashad, akharin index chande? _______4______
+// 6) Aya vector<int> mitavand string negah darad? ______kheir________
 //
 // Tamrin-e extra: baraye har javab yek mesal az khodet besaz.
 int main()
 {
-  //exersize07();
-  //exersize08();
-    exersize09();
+  // exersize07();
+  // exersize08();
+  // exersize09();
+  // exersize10();
+  // exersize13();
+  // exersize14();
+     exersize15();
 }
-
