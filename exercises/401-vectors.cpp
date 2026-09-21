@@ -18,6 +18,9 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm> // for sort, reverse
+#include <stdexcept>
+
 using namespace std;
 
 // ------------------------------------------------------------
@@ -41,7 +44,6 @@ using namespace std;
 // Javab-ha:
 // A __6__  B __19__  C __25__  D __4__  E __25__  F __ghoftam bala behet________________
 
-
 // ------------------------------------------------------------
 // EXERCISE 2 — TAGHYIR-E VALUE
 // ------------------------------------------------------------
@@ -59,7 +61,6 @@ using namespace std;
 // Dastoor 1 ba'd: [__10__, __8__, __3__]
 // Dastoor 2 ba'd: [__10__, __8__, __7__]
 // size() = __3__
-
 
 // ------------------------------------------------------------
 // EXERCISE 3 — PUSH_BACK
@@ -80,7 +81,6 @@ using namespace std;
 // After push_back 9: [__2__, __4__, __9__]      size = __3__
 // After push_back 1: [__2__, __4__, __9__, __1__] size = __4__
 
-
 // ------------------------------------------------------------
 // EXERCISE 4 — POP_BACK
 // ------------------------------------------------------------
@@ -99,7 +99,6 @@ using namespace std;
 // After pop_back:    [__11__, __22__, __33__, ____] size = __3__
 // After pop_back:    [__11__, __22__, ____, ____] size = __2__
 
-
 // ------------------------------------------------------------
 // EXERCISE 5 — SIZE VA INDEX
 // ------------------------------------------------------------
@@ -116,7 +115,6 @@ using namespace std;
 //
 // Yadآvari: size tedad-e item-hast; index az sefr shoroo mishavad.
 
-
 // ------------------------------------------------------------
 // EXERCISE 6 — PISHBINI-E OUTPUT
 // ------------------------------------------------------------
@@ -127,12 +125,15 @@ using namespace std;
 // points[1] = 3;
 // cout << points[1] << endl;
 // cout << points.size() << endl;
-//
-// HAND WORK:
-// Khate chap-e 1: ______
-// Khate chap-e 2: ______
-// Khate chap-e 3: ______
+// natige :
+//  6
+//  3
+//  3
 
+// HAND WORK:
+// Khate chap-e 1: ___6___
+// Khate chap-e 2: ___3___
+// Khate chap-e 3: ___3___
 
 // ------------------------------------------------------------
 // EXERCISE 7 — CIN VA VECTOR
@@ -141,34 +142,62 @@ using namespace std;
 // 1) vector<int> ba 3 item besazad.
 // 2) 3 adad az karbar begirad va dar index-haye 0, 1, 2 bezarad.
 // 3) item-e index 0 va index 2 ra chap konad.
-//
+void exersize07()
+{
+  cout << "natijeye fa'liate 07 :" << "\n";
+  vector<int> heshmat = {
+      7,
+      10,
+      11,
+  };
+  cin >> heshmat[0];
+  cin >> heshmat[1];
+  cin >> heshmat[2];
+  cout << "heshmat[0] = " << heshmat[0] << "\n";
+  cout << "heshmat[2] = " << heshmat[2] << "\n";
+}
+
 // HAND WORK / PLAN:
 // Variable-ha: ______________________________________________
 // Voroodi sample: 7 14 21
 // Pas vector mishe: [____, ____, ____]
-// Output bayad bashe: ________________________________________
+// Output bayad bashe: _7  21_______________________________________
 //
 // CODE:
 // Inja code-e khodet ra benevis.
 
-
 // ------------------------------------------------------------
 // EXERCISE 8 — IF VA VECTOR
 // ------------------------------------------------------------
-// Vector-e nomre-ha:
+// Vector-e nomre-ha: {8 ,15 ,10}
 // vector<int> scores = {8, 15, 10};
 //
 // Barname-i benevis ke:
 // - baraye scores[0] agar >= 10 bood "pass" chap konad, vagarna "retry"
 // - baraye scores[1] hamin check ra anjam dahad
-//
+void exersize08()
+{
+  cout << "natijeye fa'liate 08 :" << "\n";
+  vector<double> scores = {10, 9, 30, 40, 2, 0, 90, 11, 4.5, 9.9999};
+  for (double i = 0; i < scores.size(); i++)
+  {
+    if (scores[i] < 10)
+    {
+      cout << "ridi dada" << "\n";
+    }
+    else
+    {
+      cout << "mobarake" << "\n";
+    }
+  }
+}
+
 // HAND WORK:
-// 8 >= 10? ____  Pas chap mishavad: __________
-// 15 >= 10? ____ Pas chap mishavad: __________
+// 8 >= 10? ____  Pas chap mishavad: ___ridi_______
+// 15 >= 10? ____ Pas chap mishavad: ___mobarake_______
 //
 // CODE:
 // Inja code-e khodet ra benevis.
-
 
 // ------------------------------------------------------------
 // EXERCISE 9 — JAM-E SE ADAD
@@ -177,16 +206,24 @@ using namespace std;
 //
 // Ba estefade az int total = 0; va jam kardan-e item-ha,
 // gheymat-e kol ra hesab kon. Loop estefade nakon.
-//
+void exersize09()
+{
+  cout << "natijeye fa'liate 08 :" << "\n";
+  vector<int> hajiloo = {12, 5, 8};
+  int total = 0;  
+  for (int i = 0; i < hajiloo.size(); i++) {
+   total = total + hajiloo[i];
+     cout << "natije mishe = "<<total<<"\n";
+    }
+}
 // HAND WORK:
-// total aval = ____
-// total = total + prices[0] = ____ + ____ = ____
-// total = total + prices[1] = ____ + ____ = ____
-// total = total + prices[2] = ____ + ____ = ____
+// total aval = __0__
+// total = total + prices[0] = __12__ + __0__ = __12__
+// total = total + prices[1] = __12__ + __5__ = __17__
+// total = total + prices[2] = __17__ + __8__ = __25__
 //
 // CODE:
 // Inja code-e khodet ra benevis.
-
 
 // ------------------------------------------------------------
 // EXERCISE 10 — LIST-E ESM-HA
@@ -206,7 +243,6 @@ vector<string> friends = {"Nima", "Tara", "Omid"};
 // CODE:
 // Inja code-e khodet ra benevis.
 
-
 // ------------------------------------------------------------
 // EXERCISE 11 — PEYDA KARDAN-E ESHTEBAH
 // ------------------------------------------------------------
@@ -224,7 +260,6 @@ vector<string> friends = {"Nima", "Tara", "Omid"};
 // size = ____
 // CODE-E DOROST:
 // ______________________________________________
-
 
 // ------------------------------------------------------------
 // EXERCISE 12 — TAGHYIR + EZAFE + HAZF
@@ -246,7 +281,6 @@ vector<string> friends = {"Nima", "Tara", "Omid"};
 // After push_back(12):    [____, ____, ____, ____] size = ____
 // After pop_back():       [____, ____, ____, ____] size = ____
 
-
 // ------------------------------------------------------------
 // EXERCISE 13 — NOMRE-HAYE EMTEHAN
 // ------------------------------------------------------------
@@ -267,7 +301,6 @@ vector<string> friends = {"Nima", "Tara", "Omid"};
 // CODE:
 // Inja code-e khodet ra benevis.
 
-
 // ------------------------------------------------------------
 // EXERCISE 14 — KHARID-E KOCHAK
 // ------------------------------------------------------------
@@ -286,7 +319,6 @@ vector<string> friends = {"Nima", "Tara", "Omid"};
 //
 // CODE:
 // Inja code-e khodet ra benevis.
-
 
 // ------------------------------------------------------------
 // EXERCISE 15 — CHALLENGE: SAKHTAN-E VECTOR BA VOROODI
@@ -311,7 +343,6 @@ vector<string> friends = {"Nima", "Tara", "Omid"};
 // CODE:
 // Inja code-e khodet ra benevis.
 
-
 // ------------------------------------------------------------
 // OPTIONAL SELF-CHECK — JAVABHA RA BA'D AZ TAMAM KARDAN BENEVIS
 // ------------------------------------------------------------
@@ -323,3 +354,10 @@ vector<string> friends = {"Nima", "Tara", "Omid"};
 // 6) Aya vector<int> mitavand string negah darad? ______________
 //
 // Tamrin-e extra: baraye har javab yek mesal az khodet besaz.
+int main()
+{
+  //exersize07();
+  //exersize08();
+    exersize09();
+}
+

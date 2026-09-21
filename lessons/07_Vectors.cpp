@@ -108,13 +108,13 @@ void example1_create() {
 void example2_index() {
     cout << "\n--- Example 2: Index ---\n";
 
-    vector<int> numbers = {10, 20, 30, 40};
+    vector<int> scores = {10, 20, 30, 40};
 
-    cout << "numbers[0] = " << numbers[0] << "\n";
-    cout << "numbers[2] = " << numbers[2] << "\n";
+    cout << "numbers[0] = " << scores[0] << "\n";
+    cout << "numbers[2] = " << scores[2] << "\n";
 
     // Ghabl az ejra pishbini kon: in khat che chizi chap mikonad?
-    cout << "Last item = " << numbers[3] << "\n";
+    cout << "Last item = " << scores[3] << "\n";
 }
 
 
