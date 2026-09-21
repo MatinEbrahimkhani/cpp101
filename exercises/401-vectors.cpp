@@ -229,7 +229,7 @@ void exersize09()
 // EXERCISE 10 — LIST-E ESM-HA
 // ------------------------------------------------------------
 vector<string> friends = {"Nima", "Tara", "Omid"};
-
+friends.push_back(laleh)
 // A) Dastoor-e chap kardan-e "Tara" ra benevis.
 // B) "Laleh" ra ba push_back ezafe kon.
 // C) size() ba'd az ezafe kardan chande?
