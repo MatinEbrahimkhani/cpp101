@@ -182,7 +182,7 @@ void example7_change_character() {
     string word = "cat";
 
     word[0] = 'b';
-
+   
     cout << word << "\n"; // bat
 }
 
@@ -337,22 +337,22 @@ void example13_yes_no() {
 // ------------------------------------------------------------
 //
 // A) string word = "HELLO";
-//    word[1] che character-i ast?              Javab: ______
+//    word[1] che character-i ast?              Javab: ___E___
 //
 // B) string name = "Ali Reza";
-//    name.length() chande?                     Javab: ______
+//    name.length() chande?                     Javab: ___8___
 //
 // C) string a = "Good";
 //    string b = "Day";
-//    a + " " + b che mishe?                    Javab: ______
+//    a + " " + b che mishe?                    Javab: ___Good + Day___
 //
 // D) string word = "cat";
 //    word[2] = 'r';
-//    string-e jadid chiye?                     Javab: ______
+//    string-e jadid chiye?                     Javab: ___car___
 //
-// E) Aya "Ali" == "ali" dorost ast? Chera?     Javab: ______
+// E) Aya "Ali" == "ali" dorost ast? Chera?     Javab: ___kheir, dar soorati dorost mishe ke ali beshe mesle avali ya'ni = Ali___
 //
-// F) Fargh-e cin >> name ba getline chist?     Javab: ______
+// F) Fargh-e cin >> name ba getline chist?     Javab: ___cin space hesab nemikonad vali getline in ghabeliat ra darad___
 
 
 // ------------------------------------------------------------
@@ -384,9 +384,9 @@ int main() {
 
     // Example-haye voroodi ra joda ejra konid.
     // example3_input_word();
-    // example4_input_line();
-    // example12_greeting();
-    // example13_yes_no();
+    example4_input_line();
+    example12_greeting();
+    example13_yes_no();
 
     return 0;
 }
