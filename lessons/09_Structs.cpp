@@ -195,7 +195,7 @@ void example4_two_students() {
     cout << s1.name << " : " << s1.score << "\n";
     cout << s2.name << " : " << s2.score << "\n";
 
-    s1.score = 17.0;
+    s2.score = 19;
 
     // Taghyir-e score-e s1, score-e s2 ra taghyir nemidehad.
     cout << "Mina's score: " << s2.score << "\n";
@@ -349,23 +349,23 @@ void example9_nested_struct() {
 // ============================================================
 //
 // A) Student s = {"Ali", 15, 18};
-//    s.name chist? __________________
+//    s.name chist? ________Ali__________
 //
 // B) s.age = 16;
-//    s.age alan chande? __________________
+//    s.age alan chande? _________16_________
 //
 // C) Student s2 = {"Mina", 14, 20};
-//    Aya taghyir-e s.age rooye s2.age asar darad? __________
+//    Aya taghyir-e s.age rooye s2.age asar darad? ____kheir______
 //
 // D) Student s;
 //    s.age = 15;
-//    s.age che meghdari darad? __________________
+//    s.age che meghdari darad? ________nemidanam,ettelaee nadaram__________
 //
 // E) Baraye dastresi be member az kodam alamat estefade mikonim?
-//    __________________
+//    ________{}__________
 //
 // F) Agar Student s = {"Ali", 15, 18}; bashad,
-//    s.score chande? __________________
+//    s.score chande? ________18__________
 
 
 // ============================================================
@@ -398,7 +398,7 @@ int main() {
     example9_nested_struct();
 
     // Example-e voroodi ra joda ejra kon:
-    // example6_input();
+    example6_input();
 
     return 0;
 }
