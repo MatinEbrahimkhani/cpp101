@@ -21,12 +21,12 @@ using namespace std;
     - Tartib-e initialize bayad ba tartib-e member-ha yeki bashad.
 */
 
-struct Student {
+struct Student
+{
     string name;
     int age;
     double score;
 };
-
 
 // ============================================================
 // EXERCISE 1 — MEMBER HA
@@ -39,10 +39,9 @@ struct Student {
 // C) s.score chist?
 //
 // HAND WORK:
-// name = __________
-// age = ____
-// score = ______
-
+// name = _____Ali_____
+// age = __15__
+// score = ___18.5___
 
 // ============================================================
 // EXERCISE 2 — DOT OPERATOR
@@ -58,14 +57,13 @@ struct Student {
 //
 // HAND WORK:
 // Start:
-// name ______  age ____  score ____
+// name __Mina____  age __14__  score _16___
 //
 // After s.age = 15:
-// name ______  age ____  score ____
+// name ___Mina___  age __15__  score __16__
 //
 // After s.score = 19:
-// name ______  age ____  score ____
-
+// name ___Mina___  age __15__  score __19__
 
 // ============================================================
 // EXERCISE 3 — DO OBJECT
@@ -80,13 +78,12 @@ struct Student {
 // C) b.name chist?
 //
 // HAND WORK:
-// a -> name ______  age ____  score ____
-// b -> name ______  age ____  score ____
+// a -> name ___Nima___  age __15__  score __17__
+// b -> name ___Tara___  age __16__  score __20__
 //
 // Ba'd az taghyir:
-// a.score = ____
-// b.score = ____
-
+// a.score = __18__
+// b.score = __20__
 
 // ============================================================
 // EXERCISE 4 — PISHBINI-E OUTPUT
@@ -99,10 +96,9 @@ struct Student {
 // cout << s.score << endl;
 //
 // HAND WORK:
-// Line 1: __________________
-// Line 2: __________________
-// Line 3: __________________
-
+// Line 1: ________Reza__________
+// Line 2: ________16__________
+// Line 3: ________12.5__________
 
 // ============================================================
 // EXERCISE 5 — IF BA SCORE
@@ -120,9 +116,8 @@ struct Student {
 // B) Output chist?
 //
 // HAND WORK:
-// 9 >= 10? ____
-// Output: __________________
-
+// 9 >= 10? __kheir ghalat ast?__
+// Output: ___retry_______________
 
 // ============================================================
 // EXERCISE 6 — TARIF-E STRUCT
@@ -133,7 +128,22 @@ struct Student {
 // - string title
 // - string author
 // - int pages
-//
+struct Book
+{
+    string title;
+    string author;
+    int pages;
+};
+
+void exercise06()
+{
+    Book b1 = {
+        title : "The Little Prince",
+        author : "Antoine",
+        pages : 96
+    };
+    cout << b1.title << " | " << b1.author << " | " << b1.pages<< endl;
+}
 // Bad yek object be esm book1 besaz va meghdar bede:
 //
 // title = "The Little Prince"
@@ -147,7 +157,6 @@ struct Student {
 //
 // CODE:
 // Inja code-e khodet ra benevis.
-
 
 // ============================================================
 // EXERCISE 7 — PRODUCT
@@ -166,8 +175,7 @@ struct Student {
 // C) price * quantity chande?
 //
 // HAND WORK:
-// 1.5 * 6 = __________
-
+// 1.5 * 6 = _____9_____
 
 // ============================================================
 // EXERCISE 8 — SAKHTAN-E OBJECT BA VALUE
@@ -181,16 +189,14 @@ struct Student {
 // score = 14.5
 //
 // HAND WORK:
-// Student s = {__________, ____, ______};
+// Student s = {_____Omid_____, __15__, ___14.5___};
 //
 // CODE:
 // Inja code-e khodet ra benevis.
 
-
 // ============================================================
 // EXERCISE 9 — VOROODI AZ KARBAR
-// ============================================================
-//
+// 
 // Barname-i benevis ke:
 // 1) yek Student besazad.
 // 2) name va age ra az karbar begirad.
@@ -201,14 +207,13 @@ struct Student {
 // HAND WORK:
 // Sample input: Aria 15
 //
-// s.name = __________
-// s.age = ____
+// s.name = ___Aria_______
+// s.age = __15__
 //
 // Output: _________________________________________________
 //
 // CODE:
 // Inja code-e khodet ra benevis.
-
 
 // ============================================================
 // EXERCISE 10 — TAGHYIR VA CHAP
@@ -224,11 +229,10 @@ struct Student {
 //
 // HAND WORK:
 // Start:
-// name ______  age ____  score ____
+// name ___Parsa___  age __15__  score __13__
 //
 // Final:
-// name ______  age ____  score ____
-
+// name ___parya___  age __16__  score __13__
 
 // ============================================================
 // EXERCISE 11 — ESHtebah-YABI
@@ -251,8 +255,11 @@ struct Student {
 //
 // CODE:
 // Inja code-e dorost ra benevis.
-
-
+struct student {
+    string name;
+    int age;
+};
+student s = {name:"mobin",age : 24};
 // ============================================================
 // EXERCISE 12 — MOGHAYESE-YE PLAYER HA
 // ============================================================
@@ -269,19 +276,27 @@ struct Student {
 // vagarna "Kian" chap kon.
 //
 // HAND WORK:
-// 10 > 15? ____
-// Output: __________________
+// 10 > 15? __kheir__
+// Output: ________Kian__________
 //
 // CODE:
-// Inja code-e khodet ra benevis.
-
-
+// Inja code-e khodet ra benevis.\
 // ============================================================
 // EXERCISE 13 — STUDENT REPORT
 // ============================================================
 //
 // Barname-i benevis ke yek Student ba value-haye zir besazad:
-//
+struct Info {
+    string name;
+    int age;
+    int score;
+};
+void exercise13 () {
+    Info i = {name: "Sina",age: 15, score: 17};
+    cout<< "Name: " << i.name  << endl;
+    cout << "Age: " << i.age << endl;
+    cout << "Score: " << i.score<<endl;
+}
 // name = "Sina"
 // age = 15
 // score = 17
@@ -293,13 +308,12 @@ struct Student {
 // Score: 17
 //
 // HAND WORK:
-// s.name = ______
-// s.age = ____
-// s.score = ____
+// s.name = ___Sina___
+// s.age = __15__
+// s.score = __17__
 //
 // CODE:
 // Inja code-e khodet ra benevis.
-
 
 // ============================================================
 // EXERCISE 14 — STRUCT VA IF
@@ -317,7 +331,6 @@ struct Student {
 //
 // CODE:
 // Inja code-e khodet ra benevis.
-
 
 // ============================================================
 // EXERCISE 15 — CHALLENGE: SHOPPING ITEM
@@ -354,7 +367,6 @@ struct Student {
 // CODE:
 // Inja code-e khodet ra benevis.
 
-
 // ============================================================
 // OPTIONAL SELF-CHECK
 // ============================================================
@@ -386,9 +398,12 @@ struct Student {
 //
 // Yek object besaz va har member ra chap kon.
 
-int main() {
+int main()
+{
     cout << "C++ Structs — Exercises\n";
     cout << "Har soal ra joda hal kon.\n";
-
+    // exercise06();
+    // exercise09();
+       exercise13(); 
     return 0;
 }

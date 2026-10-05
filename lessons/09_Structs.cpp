@@ -145,7 +145,10 @@ void example1_create_object() {
 void example2_initialize() {
     cout << "\n--- Example 2: Initializing an object ---\n";
 
-    Student s2 = {"Sara", 16, 19.25};
+    Student s2 = {name:"Sara",
+         age:16, 
+         score:19.25
+        };
 
     cout << "Name: " << s2.name << "\n";
     cout << "Age: " << s2.age << "\n";
