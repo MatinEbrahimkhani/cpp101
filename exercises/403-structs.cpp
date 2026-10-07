@@ -142,7 +142,7 @@ void exercise06()
         author : "Antoine",
         pages : 96
     };
-    cout << b1.title << " | " << b1.author << " | " << b1.pages<< endl;
+    cout << b1.title << " | " << b1.author << " | " << b1.pages << endl;
 }
 // Bad yek object be esm book1 besaz va meghdar bede:
 //
@@ -196,7 +196,7 @@ void exercise06()
 
 // ============================================================
 // EXERCISE 9 — VOROODI AZ KARBAR
-// 
+//
 // Barname-i benevis ke:
 // 1) yek Student besazad.
 // 2) name va age ra az karbar begirad.
@@ -255,11 +255,12 @@ void exercise06()
 //
 // CODE:
 // Inja code-e dorost ra benevis.
-struct student {
+struct student
+{
     string name;
     int age;
 };
-student s = {name:"mobin",age : 24};
+student s = {name : "mobin", age : 24};
 // ============================================================
 // EXERCISE 12 — MOGHAYESE-YE PLAYER HA
 // ============================================================
@@ -286,16 +287,18 @@ student s = {name:"mobin",age : 24};
 // ============================================================
 //
 // Barname-i benevis ke yek Student ba value-haye zir besazad:
-struct Info {
+struct Info
+{
     string name;
     int age;
     int score;
 };
-void exercise13 () {
-    Info i = {name: "Sina",age: 15, score: 17};
-    cout<< "Name: " << i.name  << endl;
+void exercise13()
+{
+    Info i = {name : "Sina", age : 15, score : 17};
+    cout << "Name: " << i.name << endl;
     cout << "Age: " << i.age << endl;
-    cout << "Score: " << i.score<<endl;
+    cout << "Score: " << i.score << endl;
 }
 // name = "Sina"
 // age = 15
@@ -318,7 +321,58 @@ void exercise13 () {
 // ============================================================
 // EXERCISE 14 — STRUCT VA IF
 // ============================================================
-//
+struct Karname
+{
+    int scoreRiazi;
+    int scorePhysics;
+    int scoreScience;
+};
+struct Danooshamooz
+{
+    string name;
+    Karname karname;
+};
+void print_Daneshamouz(Danooshamooz D)
+{
+    cout << "========================================" << endl;
+    cout << "Student name: " << D.name << endl;
+    cout << "----------------------------------------" << endl;
+    cout << "Math\t" << D.karname.scoreRiazi << endl;
+    cout << "Physics\t" << D.karname.scorePhysics << endl;
+    cout << "Science\t" << D.karname.scoreScience << endl;
+    cout << "========================================" << endl;
+}
+
+void exercise14()
+{
+    Danooshamooz d = {name : "Mamad", karname : {0, 15, 16}};
+    print_Daneshamouz(d);
+    if (d.karname.scorePhysics >= 10)
+    {
+        cout << "Physics Passed" << endl;
+    }
+    else
+    {
+        cout << "namosan physicset ride" << endl;
+    }
+    if (d.karname.scoreRiazi >= 10)
+    {
+        cout << "Riazi Passed" << endl;
+    }
+    else
+    {
+        cout << "namosan Riazit ride" << endl;
+    }
+    if (d.karname.scoreScience >= 10)
+    {
+        cout << "Science Passed" << endl;
+    }
+    else
+    {
+        cout << "namosan Sciencet ride" << endl;
+    }
+}
+
 // Barname-i benevis ke yek Student ba name va score dashte bashad.
 //
 // Agar score >= 10 bood "Passed" chap konad;
@@ -335,7 +389,29 @@ void exercise13 () {
 // ============================================================
 // EXERCISE 15 — CHALLENGE: SHOPPING ITEM
 // ============================================================
-//
+struct Item
+{
+    string name;
+    double price;
+    int quantity;
+    double total;
+};
+void exercise15()
+{
+    Item i = {name : "Notebook", price : 1, quantity : 6, total : NULL};
+    i.total = i.price * i.quantity;
+    cout << "name : " << i.name << endl;
+    cout << "price : " << i.price << endl;
+    cout << "quantity : " << i.quantity << endl;
+    cout << "total : "<< i.total << endl;
+    if (i.total < 10) {
+        cout << "Small purchase" << endl;
+    } 
+    if (i.total >= 10) {
+        cout << "Big purchase" << endl;
+    }
+}
+
 // Struct Item tarif kon ba:
 //
 // string name
@@ -404,6 +480,19 @@ int main()
     cout << "Har soal ra joda hal kon.\n";
     // exercise06();
     // exercise09();
-       exercise13(); 
+    //    exercise13();
+    // exercise14();
+    // exercise15();
+    int a =12;
+    int b = 0;
+    int c= NULL;
+    
+    cout << "value\t type\t size\n";
+    cout << "a " <<a <<"\t"<<"\t"<<sizeof(a) <<  endl;
+    cout << "b "  <<b <<"\t"<<"\t"<<sizeof(b) <<  endl;
+    cout << "c " <<c <<"\t"<<"\t"<<sizeof(c) <<  endl;
+    cout << "d  " <<d <<"\t"<<"\t"<<sizeof(d) <<  endl;
+
+
     return 0;
 }
